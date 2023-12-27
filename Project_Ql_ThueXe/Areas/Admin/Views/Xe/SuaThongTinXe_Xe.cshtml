@@ -1,0 +1,143 @@
+﻿@model Project_Ql_ThueXe.Models.ThongTinXe_DanhSachLoaiXe_DanhSachTram_HienCo
+@using Project_Ql_ThueXe.Models;
+@{
+    ViewBag.Title = "SuaThongTinXe_Xe";
+    Layout = "~/Areas/Admin/Views/Shared/Layout_Admin.cshtml";
+}
+<style>
+    .custom-box {
+        border: 2px solid #007bff; /* Viền màu xanh */
+        border-radius: 10px; /* Bo tròn viền */
+        padding: 10px; /* Khoảng cách nội dung và viền */
+        margin-bottom: 10px; /* Khoảng cách giữa các ô */
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+    .custom-message {
+        color: white;
+        background-color: red;
+        padding: 8px 12px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        margin-top: 10px;
+        font-family: 'Times New Roman';
+    }
+</style>
+<link rel="stylesheet" href="~/Areas/Admin/Css/Xe_Admin_Css.css" />
+<link rel="stylesheet" href="~/Areas/Admin/Css/XemChiTietXe_Css.css" />
+<div class="tieuDe">
+    <h2 class="text-center" style="margin-top: 20px; color: #15031B;">THÔNG TIN XE CẦN SỬA</h2>
+</div>
+@if (!string.IsNullOrEmpty(ViewBag.ThongBao))
+{
+    <h4 class="custom-message">@ViewBag.ThongBao</h4>
+}
+<br />
+<div class="custom-box formbold-main-wrapper">
+    <div class="formbold-form-wrapper">
+        <form action="@Url.Action("SuaThongTinXe_Xe", "Xe")" method="POST">
+            <div class="flex flex-wrap formbold--mx-3">
+                <div class="w-full sm:w-half formbold-px-3">
+                    <div class="formbold-mb-5">
+                        <label for="fName" class="formbold-form-label"> Mã xe </label>
+                        <input type="text"
+                               name="sMaXe"
+                               class="formbold-form-input"
+                               value="@Model.ThongTinXe.MaXe"
+                               readonly />
+                    </div>
+                </div>
+                <div class="w-full sm:w-half formbold-px-3">
+                    <div class="formbold-mb-5 w-full">
+                        <label for="date" class="formbold-form-label"> Ngày thêm</label>
+                        <input type="text"
+                               name="sNgayThem"
+                               id="date"
+                               class="formbold-form-input"
+                               value="@Html.FormatValue(Model.ThongTinXe.NgayThem, "{0:dd/MM/yyyy}")"
+                               readonly />
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-wrap formbold--mx-3">
+                <div class="w-full sm:w-half formbold-px-3">
+                    <div class="formbold-mb-5">
+                        <label for="tinhTrang" class="formbold-form-label">Tình trạng</label>
+                        <select name="sTinhTrang" id="tinhTrang" class="formbold-form-input" required>
+                            <option value="">@Model.ThongTinXe.TinhTrang</option>
+                            <option value="Chưa được mượn">Chưa được mượn</option>
+                            <option value="Đang được mượn">Đang được mượn</option>
+                            <option value="Đang sửa chữa">Đang sửa chữa</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="w-full sm:w-half formbold-px-3">
+                    <div class="formbold-mb-5">
+                        <label for="LoaiXe" class="formbold-form-label">Trạm hiện tại</label>
+                        <select name="sTram" id="LoaiXe" class="formbold-form-input" required>
+                            @if (Model.ThongTinXe.MaTram == null)
+                            {
+                                <option value="0">Không có trạm</option>
+                            }
+                            else
+                            {
+                                <option value="@Model.ThongTinXe.MaTram">@Model.ThongTinXe.MaTram</option>
+                            }
+                            @foreach (var item in Model.DanhSachTram)
+                            {
+                                <option value="@item.MaTram">@item.MaTram</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="w-full sm:w-half formbold-px-3">
+                    <div class="formbold-mb-5">
+                        <label for="LoaiXe" class="formbold-form-label">Loại xe</label>
+                        <select name="sLoaiXe" id="LoaiXe" class="formbold-form-input" required>
+                            @if (Model.ThongTinXe.MaLoai == null)
+                            {
+                                <option value="0">Không có loại xe</option>
+                            }
+                            else
+                            {
+                                <option value="@Model.ThongTinXe.MaLoai">@Model.ThongTinXe.LOAIXE.TenLoai</option>
+                            }
+                            @foreach (var item in Model.DanhSachLoaiXe)
+                            {
+                                <option value="@item.MaLoai" data-gia="@Html.FormatValue(item.DonGia, "{0:#,##0}")">@item.TenLoai</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex formbold-mb-5">
+                <span style="font-weight:bold; padding-right:5px;">Bạn có chắc chắn muốn sửa xe này không? </span>
+                <div class="flex" style="padding-top:2px">
+                    <input type="radio"
+                           name="radio1"
+                           id="radioButton1"
+                           class="formbold-radio"
+                           value="1"
+                           required />
+                    <label for="radioButton1" class="formbold-radio-label"> Có </label>
+                </div>
+                <div class="flex" style="padding-top:2px">
+                    <input type="radio"
+                           name="radio1"
+                           id="radioButton2"
+                           class="formbold-radio"
+                           value="0"
+                           required />
+                    <label for="radioButton2" class="formbold-radio-label"> Không </label>
+                </div>
+            </div>
+            <div>
+                <button class="formbold-btn" style="margin-left:500px;" type="submit">Lưu</button>
+            </div>
+        </form>
+    </div>
+</div>
+<a href="@Url.Action("QuanLyXe","Xe")" class="btn btn-primary" style="margin-top: 60px;margin-bottom:10px;margin-left: 10px"><i class="fa-solid fa-arrow-left"></i> Quay lại trang quản lý xe</a>
+
+

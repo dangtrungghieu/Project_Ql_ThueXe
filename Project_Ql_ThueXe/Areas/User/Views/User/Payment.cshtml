@@ -1,0 +1,10 @@
+﻿
+@{
+    ViewBag.Title = "Payment";
+    Layout = "~/Areas/User/Views/Shared/LayoutUser.cshtml";
+}
+<h2 style="text-align:center; margin-bottom:50px;margin-top:30px">Nạp Tiền</h2>
+<form style="text-align:center" action="Payment" method="post">
+    <input type="number" min="1" name="sSoTien" required />
+    <button type="submit">Thanh Toán</button>
+</form>

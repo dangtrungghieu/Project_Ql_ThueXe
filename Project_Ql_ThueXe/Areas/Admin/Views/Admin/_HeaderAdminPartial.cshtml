@@ -1,0 +1,34 @@
+﻿@using Project_Ql_ThueXe.Models;
+@{
+    NGUOIDUNG nGUOIDUNG = (NGUOIDUNG)Session["Admin"];
+}
+<div class="header-admin col-lg-12">
+    <div class="col-lg-3">
+        <div class="header-admin-img">
+            <img src="~/Images/logoOOD.png" style="width: 200px; height: 240px; border-radius: 10px;" />
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <div class="header-admin-body-all">
+            <div class="panel-admin">
+                <span class="header-admin-text">QUẢN LÝ WEBSITE</span> <span class="header-admin-panel">DHGo</span>
+            </div>
+            <div class="header-admin-body">
+                <div class="header-admin-mess">Xin chào,<span style="font-weight:bold;margin-left:5px">@Truncate(nGUOIDUNG.TenNguoiDung)</span></div><div class="header-admin-inbody"><i class="fas fa-user-circle"></i></div>
+            </div>
+        </div>
+    </div>
+</div>
+@helper Truncate(string s)
+{
+    string[] words = s.Split(' ');
+    if (words.Length > 1) 
+    {
+        string lastName = words[words.Length - 1];
+        @lastName
+    }
+    else
+    {
+        @s      
+    }
+}

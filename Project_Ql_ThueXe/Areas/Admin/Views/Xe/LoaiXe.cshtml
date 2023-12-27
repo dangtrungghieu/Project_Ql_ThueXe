@@ -1,0 +1,266 @@
+﻿@using Project_Ql_ThueXe.Models;
+@using PagedList.Mvc;
+@model PagedList.PagedList<LOAIXE>
+@{
+    ViewBag.Title = "LoaiXe";
+    Layout = "~/Areas/Admin/Views/Shared/Layout_Admin.cshtml";
+}
+@{
+    int STT = 1;
+}
+<style>
+    .MenuTrang {
+        display: inline;
+        text-align: center;
+    }
+</style>
+<style>
+    .custom-box {
+        border: 2px solid #007bff; /* Viền màu xanh */
+        border-radius: 10px; /* Bo tròn viền */
+        padding: 10px; /* Khoảng cách nội dung và viền */
+        margin-bottom: 10px; /* Khoảng cách giữa các ô */
+        margin-left: 50px;
+        margin-right: 50px;
+        margin-top:20px;
+    }
+
+    .custom-message {
+        color: white;
+        background-color: red;
+        padding: 8px 12px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        margin-top: 10px;
+        font-family: 'Times New Roman';
+    }
+</style>
+<link rel="stylesheet" href="~/Areas/Admin/Css/Xe_Admin_Css.css" />
+<link rel="stylesheet" href="~/Areas/Admin/Css/XemChiTietXe_Css.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+<div class="tieuDe">
+    <h2 class="text-center" style="margin-top: 20px; color: #15031B;">DANH SÁCH LOẠI XE</h2>
+</div>
+<button onclick="window.location.href = '@Url.Action("AddLoaiXe","Xe")'" class="button-82-pushable" style="margin-left:5px;">
+    <span class="button-82-shadow"> </span>
+    <span class="button-82-edge"> </span>
+    <span class="button-82-front text" style="font-size:15px">
+        Thêm mới
+    </span>
+</button>
+<div class="modal fade" id="modalLoaiXe" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="font-weight:bold">Thông tin Loại xe</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="border-radius:5px;font-weight:bold; color:red">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="txtMaXe">Mã loại xe</label>
+                    <input type="text" class="form-control" id="txtMaXe" placeholder="Mã xe ...." readonly />
+                </div>
+                <div class="form-group">
+                    <input type="text" id="maXe" value="" hidden />
+                    <label for="txtTenLoai">Loại Xe</label>
+                    <input type="text" class="form-control" id="txtTenLoai" placeholder="Loại xe ...." readonly />
+                    <label for="txtDonGia">Đơn giá</label>
+                    <input type="text" class="form-control" id="txtDonGia" placeholder="Đơn giá ...." readonly />
+                    <label for="txtSoLuong">Số lượng</label>
+                    <input type="text" class="form-control" id="txtSoLuong" placeholder="Số lượng ...." readonly />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCloseModal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="custom-box row">
+    <div class="col-md-12">
+        <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
+            <table class="table manage-candidates-top mb-0">
+                <thead>
+                    <tr>
+                        <th class="text-center">STT</th>
+                        <th class="text-center">Tên loại xe</th>
+                        <th class="text-center">Đơn giá</th>
+                        <th style="float:right">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="candidates-list">
+                            <td style="text-align:center;font-weight:bold;color:red">
+                                @STT
+                            </td>
+                            <td class="text-center">
+                                @item.TenLoai
+                                @*<div class="thumb">
+                                        <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="">
+                                    </div>
+                                    <div class="candidate-list-details">
+                                        <div class="candidate-list-info">
+                                            <div class="candidate-list-title">
+                                                <h5 class="mb-0"><a href="#">Brooke Kelly</a></h5>
+                                            </div>
+                                            <div class="candidate-list-option">
+                                                <ul class="list-unstyled">
+                                                    <li><i class="fas fa-filter pr-1"></i>Information Technology</li>
+                                                    <li><i class="fas fa-map-marker-alt pr-1"></i>Rolling Meadows, IL 60008</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>*@
+                            </td>
+                            <td class="candidate-list-favourite-time text-center">
+                                @*<a class="candidate-list-favourite order-2 text-danger" href="#"><i class="fas fa-heart"></i></a>
+                                    <span class="candidate-list-time order-1">Shortlisted</span>*@
+                                <span style="color:blue; font-weight:bold">@Html.FormatValue(item.DonGia, "{0:#,##0}")</span> VNĐ
+                            </td>
+                            <td>
+                                <ul class="list-unstyled mb-0 d-flex justify-content-end" style="align-items:center">
+                                    <li>
+                                        <a href="#" class="text-primary detail-link" data-id="@item.MaLoai" data-toggle="tooltip" title="view" data-original-title="View">
+                                            <i class="far fa-eye"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="text-info edit-link" data-id="@item.MaLoai" data-toggle="modal" data-target="#editModal" title="Edit">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                    </li>
+                                    <li><a href="@Url.Action("Delete_LoaiXe","Xe", new { id = item.MaLoai})" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete"><i class="far fa-trash-alt"></i></a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                        STT++;
+                    }
+                </tbody>
+            </table>
+
+        </div>
+        @*<div class="MenuTrang">
+                @Html.PagedListPager(Model, page => Url.Action("LoaiXe", "Xe", new { iMaCD = ViewBag.MaCD, page = page }))
+            </div>*@
+    </div>
+</div>
+
+<!-- Modal chỉnh sửa -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Chỉnh sửa Loại xe</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="updateLoaiXeForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="maLoai">Mã Loại</label>
+                        <input type="text" class="form-control" id="maLoai" name="maLoai" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label for="tenLoai">Tên Loại Xe</label>
+                        <input type="text" class="form-control" id="tenLoai" name="tenLoai" placeholder="Nhập tên loại xe" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="donGia">Đơn Giá</label>
+                        <input type="number" class="form-control" id="donGia" name="donGia" placeholder="Nhập đơn giá" required />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@*Script*@
+<a href="@Url.Action("QuanLyXe","Xe")" class="btn btn-primary" style="margin-top:60px;margin-bottom:10px ;margin-left:10px"><i class="fa-solid fa-arrow-left"></i> Quay lại trang quản lý xe</a>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const detailLinks = document.querySelectorAll('.detail-link');
+
+        detailLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const xeId = this.getAttribute('data-id');
+                fetch(`/Xe/Details_LoaiXe?id=${xeId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const loaiXeInfo = data.loaiXe;
+
+                        document.getElementById('txtMaXe').value = loaiXeInfo.Id;
+                        document.getElementById('txtTenLoai').value = loaiXeInfo.TenLoai;
+                        document.getElementById('txtDonGia').value = loaiXeInfo.DonGia;
+                        document.getElementById('txtSoLuong').value = loaiXeInfo.SoLuong;
+
+                        $('#modalLoaiXe').modal('show');
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Đã xảy ra lỗi khi lấy thông tin loại xe');
+                    });
+            });
+        });
+        $(document).ready(function () {
+            $('#btnCloseModal, .modal-header .close').on('click', function () {
+                $('#modalLoaiXe').modal('hide');
+            });
+        });
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById('updateLoaiXeForm');
+        const editLinks = document.querySelectorAll('.edit-link');
+
+        editLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const maLoai = this.getAttribute('data-id');
+
+                $('#editModal').modal('show');
+
+                const maLoaiField = form.querySelector('#maLoai');
+                maLoaiField.value = maLoai;
+            });
+        });
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+
+            fetch('/Xe/Update_LoaiXe', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                })
+                .finally(() => {
+                    $('#editModal').modal('hide');
+                });
+        });
+        $('.modal-footer .btn-secondary').on('click', function () {
+            $('#editModal').modal('hide');
+        });
+        $('.modal-header .close').on('click', function () {
+            $('#editModal').modal('hide');
+        });
+    });
+</script>

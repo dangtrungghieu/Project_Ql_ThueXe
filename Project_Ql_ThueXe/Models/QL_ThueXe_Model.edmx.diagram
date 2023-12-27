@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="74071a8ddd6b4ab49b5dfee84b798d96" Name="Diagram1" ZoomLevel="67">
+        <EntityTypeShape EntityType="QL_ThueXeModel.GOPY" Width="1.5" PointX="12.5" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ThueXeModel.LOAITHEMUON" Width="1.5" PointX="2.25" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ThueXeModel.LOAIXE" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ThueXeModel.MUONXE" Width="1.5" PointX="7.625" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ThueXeModel.NGUOIDUNG" Width="1.5" PointX="8.125" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ThueXeModel.QUYENTRUYCAP" Width="1.5" PointX="10.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ThueXeModel.sysdiagrams" Width="1.5" PointX="13.125" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ThueXeModel.THEMUON" Width="1.5" PointX="4.875" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ThueXeModel.TRAM" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QL_ThueXeModel.XE" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <AssociationConnector Association="QL_ThueXeModel.FK_NGUOIDUNG_GOPY" ManuallyRouted="false" />
+        <AssociationConnector Association="QL_ThueXeModel.FK_THEMUON_LOAITHEMUON" ManuallyRouted="false" />
+        <AssociationConnector Association="QL_ThueXeModel.FK_LOAIXE_XE" ManuallyRouted="false" />
+        <AssociationConnector Association="QL_ThueXeModel.FK_MUONXE_THEMUON" ManuallyRouted="false" />
+        <AssociationConnector Association="QL_ThueXeModel.FK_MUONXE_XE" ManuallyRouted="false" />
+        <AssociationConnector Association="QL_ThueXeModel.FK_NGUOIDUNG_THEMUON" ManuallyRouted="false" />
+        <AssociationConnector Association="QL_ThueXeModel.FK_QUYENTRUYCAP_NGUOIDUNG" ManuallyRouted="false" />
+        <AssociationConnector Association="QL_ThueXeModel.FK_TRAM_XE" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

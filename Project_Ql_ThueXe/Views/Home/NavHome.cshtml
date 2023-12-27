@@ -1,0 +1,166 @@
+﻿@using Project_Ql_ThueXe.Models
+
+@{
+    NGUOIDUNG nGUOIDUNG = (NGUOIDUNG)Session["TaiKhoan"];
+}
+
+@{
+    Layout = null;
+}
+
+<style>
+    .dialog {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity linear 0.2s;
+    }
+
+    .overlay-close {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        cursor: default;
+    }
+
+    .dialog:target {
+        visibility: visible;
+        opacity: 1;
+    }
+
+
+    .overlay {
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .dialog-body {
+        max-width: 400px;
+        position: relative;
+        padding: 16px;
+        background-color: #fff;
+    }
+
+    .dialog-close-btn {
+        position: absolute;
+        top: 2px;
+        right: 6px;
+        text-decoration: none;
+        color: #333;
+    }
+</style>
+
+<a class="navbar-brand" href="@Url.Action("Home", "Home", new {area = ""})">
+    <img src="~/Images/logoOOD.png" alt="Logo" class="img-fluid" style="max-height: 130px;margin-left: 120px">
+</a>
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+    <ul class="navbar-nav mx-auto">
+        <li class="nav-item me-5">
+            <a class="nav-link fs-5" href="@Url.Action("HuongDan", "Home")"><strong>Hướng dẫn sử dụng</strong></a>
+        </li>
+        <li class="nav-item me-5">
+            <a class="nav-link fs-5" href="@Url.Action("BangGia", "Home")"><strong>Bảng giá</strong></a>
+        </li>
+        <li class="nav-item dropdown me-5">
+            <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown" data-bs-target="#navbarDropdownMenuLink1">
+                <strong>Danh sách trạm</strong>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
+                <a class="dropdown-item" href="@Url.Action("DiaChiTram", "Home", new {id = 1})">Trạm 1</a>
+                <a class="dropdown-item" href="#">Trạm 2</a>
+                <a class="dropdown-item" href="#">Trạm 3</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown me-5">
+            <a class="nav-link dropdown-toggle fs-5" href="#" role="button" data-bs-toggle="dropdown" data-bs-target="#navbarDropdownMenuLink2">
+                <strong>Liên hệ</strong>
+            </a>
+            <div style="text-align:center" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+                <a href="https://www.facebook.com/profile.php?id=61554839498513" class="text-dark ml-2 dropdown-item"><i class="fab fa-facebook fa-2x" style="margin-right:20px"></i></a>
+                <a href="https://twitter.com" class="text-dark ml-2 dropdown-item"><i class="fab fa-twitter fa-2x" style="margin-right:20px"></i></a>
+                <a href="https://www.instagram.com/" class="text-dark ml-2 dropdown-item"><i class="fab fa-instagram fa-2x" style="margin-right:20px"></i></a>
+                <a href="https://youtube.com" class="text-dark ml-2 dropdown-item"><i class="fab fa-youtube fa-2x" style="margin-right:20px"></i></a>
+            </div>
+        </li>
+
+        <li class="nav-item dropdown me-5">
+            @if (nGUOIDUNG != null)
+            {
+                <!-- Nếu người dùng đã đăng nhập -->
+                <a class="nav-link dropdown-toggle fs-5 d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="header-admin-mess">
+                        <strong>
+                            Xin chào,<span style="font-weight:bold;margin-left:5px">
+                                @Truncate(nGUOIDUNG.TenNguoiDung)
+                                <i style="margin-left:15px" class="fas fa-user-circle"></i>
+                            </span>
+                        </strong>
+                    </div>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+                    <a class="dropdown-item" href="@Url.Action("Index", "User", new { area = "User"})">Thông tin cá nhân</a>
+                    <a class="dropdown-item dialog-btn" href="#my-dialog">Đổi mật khẩu</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="@Url.Action("Logout", "User", new { area = "User"})">Đăng xuất</a>
+                </div>
+            }
+            else
+            {
+                <!-- Nếu người dùng chưa đăng nhập -->
+                <a class="nav-link fs-5 btn btn-primary" style="background-color: #007bff; border-color: #28a745; color: #ffffff;"
+                   href="@Url.Action("Login", "Users", new { area = "" })">Đăng nhập</a>
+            }
+        </li>
+    </ul>
+</div>
+
+@using (Html.BeginForm())
+{
+    <div class="dialog overlay" id="my-dialog">
+        <a href="#" class="overlay-close"></a>
+
+        <div class="dialog-body">
+            <a class="dialog-close-btn" href="#">&times;</a>
+            <h3 style="text-align: center">Đổi Mật Khẩu</h3>
+            <form id="changePasswordForm">
+                <div class="form-group" style="text-align: center">
+                    <label for="currentPassword">Mật khẩu hiện tại:</label>
+                    <input type="password" class="form-control" id="currentPassword" name="sPass" required>
+                </div>
+                <div class="form-group" style="text-align: center">
+                    <label for="newPassword">Mật khẩu mới:</label>
+                    <input type="password" class="form-control" id="newPassword" name="sNewPass" required>
+                </div>
+                <div class="form-group" style="text-align: center">
+                    <label for="confirmNewPassword">Nhập lại mật khẩu mới:</label>
+                    <input type="password" class="form-control" id="confirmNewPassword" name="sConfirmNewPass" required>
+                </div>
+                <button style="margin-left:60px" type="submit" class="btn btn-primary">Xác nhận</button>
+            </form>
+        </div>
+    </div>
+}
+
+@helper Truncate(string s)
+{
+    string[] words = s.Split(' ');
+    if (words.Length > 0)
+    {
+        string lastWord = words[words.Length - 1];
+        @lastWord
+    }
+    else
+    {
+        @s
+    }
+}

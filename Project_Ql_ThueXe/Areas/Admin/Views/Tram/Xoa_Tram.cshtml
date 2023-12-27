@@ -1,0 +1,93 @@
+﻿@using Project_Ql_ThueXe.Models
+@{
+    ViewBag.Title = "Xoa_Tram";
+    Layout = "~/Areas/Admin/Views/Shared/Layout_Admin.cshtml";
+}
+<style>
+    .custom-message {
+        color: white;
+        background-color: red;
+        padding: 8px 12px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        margin-top: 10px;
+        font-family: 'Times New Roman';
+    }
+
+    .flex {
+        display: flex;
+    }
+</style>
+<link rel="stylesheet" href="~/Areas/Admin/Css/XemChiTietXe_Css.css" />
+<div class="container">
+    <div class="tieuDe">
+        <h2 class="text-center" style="margin-top: 20px; color: #15031B;">THÔNG TIN TRẠM CẦN XÓA</h2>
+    </div>
+    @if (!string.IsNullOrEmpty(ViewBag.ThongBao))
+    {
+        <h4 class="custom-message">@ViewBag.ThongBao</h4>
+    }
+    <br />
+    <div class="row">
+        <div class="col-md-6">
+            <fieldset class="custom-fieldset">
+                <legend><i class="fas fa-warehouse"></i><span> Thông tin trạm </span><i class="fas fa-warehouse"></i></legend>
+                <div class="custom-card">
+                    <div>
+                        <h4><i class="fas fa-house-user"></i> Mã trạm: @Model.MaTram</h4>
+                        <h4><i class="fas fa-house-user"></i> Địa chỉ: @Model.DiaChi</h4>
+                        <h4><i class="fas fa-check-circle"></i> Tình trạng: @Model.TinhTrang</h4>
+                        <h4><i class="fas fa-bicycle"></i> Số lượng xe: @ViewBag.SoLuongXe</h4>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-md-6">
+            <fieldset class="custom-fieldset">
+                <legend><i class="fas fa-wrench"></i><span> Thông tin vị trí trên Google Map </span><i class="fas fa-wrench"></i></legend>
+                <div class="custom-card">
+                    <div>
+                        <h4><i class="fas fa-map-marked-alt"></i> Long: @Model.Long</h4>
+                        <h4><i class="fas fa-map-marked"></i> Last: @Model.Last</h4>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+    </div>
+    <form action="@Url.Action("Xoa_Tram", "Tram")" method="post">
+        <div class="flex formbold-mb-5">
+            <input type="hidden" name="MaTram" value="@Model.MaTram" />
+            <span style="font-weight:bold; padding-right:5px;">Bạn có chắc chắn muốn xóa xe này không? </span>
+            <div class="flex" style="display: flex; align-items: center; margin-left: 10px;">
+                <input type="radio"
+                       name="radio1"
+                       id="radioButton1"
+                       class="formbold-radio"
+                       value="1"
+                       required />
+                <label for="radioButton1" class="formbold-radio-label" style="margin-left: 5px;"> Có </label>
+            </div>
+            <div class="flex" style="display: flex; align-items: center; margin-left: 10px;">
+                <input type="radio"
+                       name="radio1"
+                       id="radioButton2"
+                       class="formbold-radio"
+                       value="0"
+                       required />
+                <label for="radioButton2" class="formbold-radio-label" style="margin-left: 5px;"> Không </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center" style="margin-top: 20px;">
+                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Xác nhận xóa</button>
+            </div>
+        </div>
+    </form>
+    <div class="mg-top">
+        <a href="@Url.Action("QuanLyTram","Tram")" class="btn btn-primary" style="margin-top: 60px; margin-bottom: 10px; margin-left: 10px"><i class="fa-solid fa-arrow-left"></i> Quay lại trang quản lý trạm</a>
+    </div>
+</div>
+
+
+

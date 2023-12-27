@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "ThemMoi_NguoiDung";
+    Layout = "~/Areas/Admin/Views/Shared/Layout_Admin.cshtml";
+}
+<style>
+    .custom-box {
+        border: 2px solid #007bff;
+        border-radius: 10px;
+        padding: 10px; 
+        margin-bottom: 10px; 
+    }
+</style>
+<div class="container-fluid px-4 bg-create">
+    <div class="row g-3 my-2">
+        <h1 class="well" style="text-align:center">THÊM NGƯỜI DÙNG MỚI</h1>
+        <span style="font-weight:bold; color:red; font-size: 20px; font-family:'Times New Roman'">@ViewBag.ThongBao</span>
+        <div class="col-lg-12 well">
+            <br />
+            <div class="row">
+                @using (Html.BeginForm("ThemMoi_NguoiDung", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data", @class = "custom-form" }))
+                {
+                <div class="col-sm-12 custom-box">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4 form-group">
+                            <label class="mg-head">Tên người dùng</label>
+                            <input type="text" placeholder="Nhập tên người dùng.." class="form-control rounded pb-3" 
+                            value="@ViewBag.Ten" name="sTen" required>
+                        </div>
+                        <div class="col-sm-6 col-md-4 form-group">
+                            <label class="mg-head">Email</label>
+                            <input type="email" placeholder="Nhập Email ở đây.." class="form-control rounded pb-3"
+                                   value="@ViewBag.Email" name="sEmail" required>
+                        </div>
+                        <div class="col-sm-6 col-md-4 form-group">
+                            <label class="mg-head">Ngày sinh</label>
+                            <input type="date" class="form-control rounded pb-3" value="@Convert.ToDateTime(ViewBag.NgaySinh)" name="sNgaySinh" required>
+                        </div>
+                        <div class="col-sm-6 col-md-4 form-group">
+                            <label class="mg-head">Giới tính</label>
+                            <select class="form-control" name="sGioiTinh" required>
+                                <option value="Nam" @(ViewBag.GioiTinh == "Nam" ? "selected" : "")>Nam</option>
+                                <option value="Nữ" @(ViewBag.GioiTinh == "Nữ" ? "selected" : "")>Nữ</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6 col-md-4 form-group">
+                            <label class="mg-head">Địa chỉ</label>
+                            <input type="text" placeholder="Nhập địa chỉ ở đây....." value="@ViewBag.DiaChi" class="form-control" name="sDiaChi" required>
+                        </div>
+                        <div class="col-sm-6 col-md-4 form-group">
+                            <label class="mg-head">UserName (Tên đăng nhập)</label>
+                            <input type="text" value="@ViewBag.UserName" placeholder="Nhập tên đăng nhập cho người dùng ở đây......" class="form-control" name="sUserName" required>
+                        </div>
+                        <div class="col-sm-6 col-md-4 form-group">
+                            <label class="mg-head">PassWord</label>
+                            <input type="text" placeholder="Nhập mật khẩu cho tài khoản ở đây....." class="form-control" value="@ViewBag.Pass" name="sPass" required>
+                        </div>
+                        <div class="col-sm-6 col-md-4 form-group" style="margin-top:25px; margin-left: 360px">
+                            <button type="submit" class="btn btn-success mg-top rounded">Thêm mới</button>
+                            <button type="reset" class="btn btn-danger mg-top rounded">Nhập lại</button>
+                        </div>
+                    </div>
+                </div>
+                }
+                        
+         </div>
+    </div>
+    <a href="@Url.Action("QuanLyNguoiDung","Admin")" class="btn btn-primary" style="width:350px;margin-top:100px; margin-bottom:10px; margin-left:10px"><i class="fa-solid fa-arrow-left"></i> Quay lại trang quản lý người dùng</a>
+    <br />
+</div>
+

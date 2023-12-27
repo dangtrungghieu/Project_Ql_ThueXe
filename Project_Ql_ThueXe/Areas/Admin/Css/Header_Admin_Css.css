@@ -1,0 +1,66 @@
+﻿.header-admin {
+    width: 99%;
+    margin: 2px 2px 2px 7px;
+    display: flex;
+    border: solid 2px red;
+    border-radius: 10px;
+}
+
+.header-admin-img {
+    float: left;
+}
+
+.header-admin-body-all {
+    display: flex;
+    padding: 20px;
+}
+
+.panel-admin {
+    display: flex;
+    font-size: 50px;
+    margin-top: 30px;
+    background-color: #D7FCF5;
+    height: 120px;
+    width: 600px;
+    padding: 10px;
+    padding-top: 30px;
+    border-radius: 20px;
+}
+
+.header-admin-body {
+    display: flex;
+    margin-left: 200px;
+}
+
+.header-admin-panel {
+    margin-left: 20px;
+    background-color: #33DA9D;
+    border-radius: 10px;
+    height: 80px;
+    width: 150px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.header-admin-body {
+    width: 200px;
+    padding-top: 150px;
+}
+
+.header-admin-inbody {
+    border: 2px solid #34A853;
+    font-size: 25px;
+    background-color: #FFEFA8;
+    display: flex;
+    justify-content: center;
+    padding-top: 13px;
+    width: 50px; /* Điều chỉnh kích thước phần tử */
+    height: 50px; /* Điều chỉnh kích thước phần tử */
+    border-radius: 50%; /* Áp dụng hình tròn */
+    margin-left: 5px;
+}
+
+.header-admin-mess {
+    display: flex;
+    padding-top: 15px;
+}

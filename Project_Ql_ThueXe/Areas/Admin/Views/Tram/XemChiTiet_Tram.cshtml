@@ -1,0 +1,50 @@
+﻿@using Project_Ql_ThueXe.Models;
+@{
+    ViewBag.Title = "XemChiTiet_Tram";
+    Layout = "~/Areas/Admin/Views/Shared/Layout_Admin.cshtml";
+}
+<link rel="stylesheet" href="~/Areas/Admin/Css/XemChiTietXe_Css.css" />
+<div class="container">
+    <div class="tieuDe">
+        <h2 class="text-center" style="margin-top: 20px; color: #15031B;">THÔNG TIN CHI TIẾT TRẠM</h2>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-6">
+            <fieldset class="custom-fieldset">
+                <legend><i class="fas fa-warehouse"></i><span> Thông tin trạm </span><i class="fas fa-warehouse"></i></legend>
+                <div class="custom-card">
+                    <div>
+                        <h4><i class="fas fa-house-user"></i> Mã trạm: @Model.MaTram</h4>
+                        <h4><i class="fas fa-house-user"></i> Địa chỉ: @Model.DiaChi</h4>
+                        <h4><i class="fas fa-check-circle"></i> Tình trạng: @Model.TinhTrang</h4>
+                        <h4><i class="fas fa-bicycle"></i> Số lượng xe: @ViewBag.SoLuongXe</h4>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-md-6">
+            <fieldset class="custom-fieldset">
+                <legend><i class="fas fa-wrench"></i><span> Thông tin vị trí trên Google Map </span><i class="fas fa-wrench"></i></legend>
+                <div class="custom-card">
+                    <div>
+                        <h4><i class="fas fa-map-marked-alt"></i> Long: @Model.Long</h4>
+                        <h4><i class="fas fa-map-marked"></i> Last: @Model.Last</h4>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center" style="margin-top: 20px;">
+            <a href="@Url.Action("SuaThongTin_Tram","Tram", new { id = Model.MaTram})" class="btn btn-warning" role="button"><i class="fas fa-edit"></i> Sửa</a>
+            <a href="@Url.Action("Xoa_Tram","Tram", new { id = Model.MaTram})" class="btn btn-danger" role="button"><i class="fas fa-trash-alt"></i> Xóa</a>
+        </div>
+    </div>
+    <div class="mg-top">
+        <a href="@Url.Action("QuanLyTram","Tram")" class="btn btn-primary" style="margin-top: 60px; margin-bottom: 10px; margin-left: 10px"><i class="fa-solid fa-arrow-left"></i> Quay lại trang quản lý trạm</a>
+    </div>
+</div>
+

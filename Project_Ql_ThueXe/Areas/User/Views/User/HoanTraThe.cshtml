@@ -1,0 +1,49 @@
+﻿@using Project_Ql_ThueXe.Models;
+
+@{
+    NGUOIDUNG nGUOIDUNG = (NGUOIDUNG)Session["TaiKhoan"];
+}
+
+@{
+    ViewBag.Title = "HoanTraThe";
+    Layout = "~/Areas/User/Views/Shared/LayoutUser.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-header bg-primary text-white text-center">
+                    <h2>Thông Tin Hoàn Trả Số Dư</h2>
+                </div>
+                <div class="card-body">
+
+                    <form>
+                        <div class="form-group">
+                            <label for="recipientName">Tên Ngân Hàng:</label>
+                            <input type="text" class="form-control" id="recipientName" placeholder="Nhập tên ngân hàng" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="accountNumber">Số Tài Khoản Người Nhận:</label>
+                            <input type="text" class="form-control" id="accountNumber" placeholder="Nhập số tài khoản người nhận" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="amount">Số Tiền:</label>
+                            <input type="number" class="form-control" id="amount" placeholder="@nGUOIDUNG.THEMUON.SoDu VNĐ"  readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="note">Ghi Chú:</label>
+                            <textarea class="form-control" id="note" rows="3" placeholder="Nhập ghi chú"></textarea>
+                        </div>
+
+                        <a href="@Url.Action("CapNhatSoDu", "User")" class="btn btn-primary btn-block">Hoàn Trả</a>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

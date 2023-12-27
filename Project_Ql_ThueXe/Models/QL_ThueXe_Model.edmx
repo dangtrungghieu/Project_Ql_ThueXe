@@ -1,0 +1,650 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="QL_ThueXeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="GOPY">
+          <Key>
+            <PropertyRef Name="MaGY" />
+          </Key>
+          <Property Name="MaGY" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TieuDe" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NgayGui" Type="date" Nullable="false" />
+          <Property Name="NoiDung" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="MaND" Type="int" />
+        </EntityType>
+        <EntityType Name="LOAITHEMUON">
+          <Key>
+            <PropertyRef Name="MaLoaiTheMuon" />
+          </Key>
+          <Property Name="MaLoaiTheMuon" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenLoaiTheMuon" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="LOAIXE">
+          <Key>
+            <PropertyRef Name="MaLoai" />
+          </Key>
+          <Property Name="MaLoai" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenLoai" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="DonGia" Type="int" Nullable="false" />
+          <Property Name="AnhBia" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="MUONXE">
+          <Key>
+            <PropertyRef Name="MaMuonXe" />
+          </Key>
+          <Property Name="MaMuonXe" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ThoiGianMuon" Type="datetime" Nullable="false" />
+          <Property Name="ThoiGianTra" Type="datetime" Nullable="false" />
+          <Property Name="MaXeMuon" Type="int" />
+          <Property Name="MaTheMuon" Type="int" />
+        </EntityType>
+        <EntityType Name="NGUOIDUNG">
+          <Key>
+            <PropertyRef Name="MaNguoiDung" />
+          </Key>
+          <Property Name="MaNguoiDung" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenNguoiDung" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="GioiTinh" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="NgaySinh" Type="date" />
+          <Property Name="Email" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="AnhDaiDien" Type="nvarchar" MaxLength="50" />
+          <Property Name="NgayTao" Type="date" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Pass" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="MaQTC" Type="int" />
+          <Property Name="MaTheMuon" Type="int" />
+        </EntityType>
+        <EntityType Name="QUYENTRUYCAP">
+          <Key>
+            <PropertyRef Name="MaQTC" />
+          </Key>
+          <Property Name="MaQTC" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenQTC" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="THEMUON">
+          <Key>
+            <PropertyRef Name="MaTheMuon" />
+          </Key>
+          <Property Name="MaTheMuon" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TaiKhoanNganHang" Type="nvarchar" MaxLength="50" />
+          <Property Name="SoDu" Type="int" />
+          <Property Name="TenNganHang" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaLoaiTheMuon" Type="int" />
+          <Property Name="PassTheMuon" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TRAM">
+          <Key>
+            <PropertyRef Name="MaTram" />
+          </Key>
+          <Property Name="MaTram" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="TinhTrang" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Long" Type="nvarchar" MaxLength="200" />
+          <Property Name="Last" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="XE">
+          <Key>
+            <PropertyRef Name="MaXe" />
+          </Key>
+          <Property Name="MaXe" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NgayThem" Type="date" />
+          <Property Name="TinhTrang" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MaLoai" Type="int" />
+          <Property Name="MaTram" Type="int" />
+        </EntityType>
+        <Association Name="FK_LOAIXE_XE">
+          <End Role="LOAIXE" Type="Self.LOAIXE" Multiplicity="0..1" />
+          <End Role="XE" Type="Self.XE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOAIXE">
+              <PropertyRef Name="MaLoai" />
+            </Principal>
+            <Dependent Role="XE">
+              <PropertyRef Name="MaLoai" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MUONXE_THEMUON">
+          <End Role="THEMUON" Type="Self.THEMUON" Multiplicity="0..1" />
+          <End Role="MUONXE" Type="Self.MUONXE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="THEMUON">
+              <PropertyRef Name="MaTheMuon" />
+            </Principal>
+            <Dependent Role="MUONXE">
+              <PropertyRef Name="MaTheMuon" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MUONXE_XE">
+          <End Role="XE" Type="Self.XE" Multiplicity="0..1" />
+          <End Role="MUONXE" Type="Self.MUONXE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="XE">
+              <PropertyRef Name="MaXe" />
+            </Principal>
+            <Dependent Role="MUONXE">
+              <PropertyRef Name="MaXeMuon" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NGUOIDUNG_GOPY">
+          <End Role="NGUOIDUNG" Type="Self.NGUOIDUNG" Multiplicity="0..1" />
+          <End Role="GOPY" Type="Self.GOPY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NGUOIDUNG">
+              <PropertyRef Name="MaNguoiDung" />
+            </Principal>
+            <Dependent Role="GOPY">
+              <PropertyRef Name="MaND" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NGUOIDUNG_THEMUON">
+          <End Role="THEMUON" Type="Self.THEMUON" Multiplicity="0..1" />
+          <End Role="NGUOIDUNG" Type="Self.NGUOIDUNG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="THEMUON">
+              <PropertyRef Name="MaTheMuon" />
+            </Principal>
+            <Dependent Role="NGUOIDUNG">
+              <PropertyRef Name="MaTheMuon" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QUYENTRUYCAP_NGUOIDUNG">
+          <End Role="QUYENTRUYCAP" Type="Self.QUYENTRUYCAP" Multiplicity="0..1" />
+          <End Role="NGUOIDUNG" Type="Self.NGUOIDUNG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QUYENTRUYCAP">
+              <PropertyRef Name="MaQTC" />
+            </Principal>
+            <Dependent Role="NGUOIDUNG">
+              <PropertyRef Name="MaQTC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_THEMUON_LOAITHEMUON">
+          <End Role="LOAITHEMUON" Type="Self.LOAITHEMUON" Multiplicity="0..1" />
+          <End Role="THEMUON" Type="Self.THEMUON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOAITHEMUON">
+              <PropertyRef Name="MaLoaiTheMuon" />
+            </Principal>
+            <Dependent Role="THEMUON">
+              <PropertyRef Name="MaLoaiTheMuon" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TRAM_XE">
+          <End Role="TRAM" Type="Self.TRAM" Multiplicity="0..1" />
+          <End Role="XE" Type="Self.XE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRAM">
+              <PropertyRef Name="MaTram" />
+            </Principal>
+            <Dependent Role="XE">
+              <PropertyRef Name="MaTram" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QL_ThueXeModelStoreContainer">
+          <EntitySet Name="GOPY" EntityType="Self.GOPY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LOAITHEMUON" EntityType="Self.LOAITHEMUON" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LOAIXE" EntityType="Self.LOAIXE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MUONXE" EntityType="Self.MUONXE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NGUOIDUNG" EntityType="Self.NGUOIDUNG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QUYENTRUYCAP" EntityType="Self.QUYENTRUYCAP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="THEMUON" EntityType="Self.THEMUON" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TRAM" EntityType="Self.TRAM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="XE" EntityType="Self.XE" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_LOAIXE_XE" Association="Self.FK_LOAIXE_XE">
+            <End Role="LOAIXE" EntitySet="LOAIXE" />
+            <End Role="XE" EntitySet="XE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MUONXE_THEMUON" Association="Self.FK_MUONXE_THEMUON">
+            <End Role="THEMUON" EntitySet="THEMUON" />
+            <End Role="MUONXE" EntitySet="MUONXE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MUONXE_XE" Association="Self.FK_MUONXE_XE">
+            <End Role="XE" EntitySet="XE" />
+            <End Role="MUONXE" EntitySet="MUONXE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NGUOIDUNG_GOPY" Association="Self.FK_NGUOIDUNG_GOPY">
+            <End Role="NGUOIDUNG" EntitySet="NGUOIDUNG" />
+            <End Role="GOPY" EntitySet="GOPY" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NGUOIDUNG_THEMUON" Association="Self.FK_NGUOIDUNG_THEMUON">
+            <End Role="THEMUON" EntitySet="THEMUON" />
+            <End Role="NGUOIDUNG" EntitySet="NGUOIDUNG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QUYENTRUYCAP_NGUOIDUNG" Association="Self.FK_QUYENTRUYCAP_NGUOIDUNG">
+            <End Role="QUYENTRUYCAP" EntitySet="QUYENTRUYCAP" />
+            <End Role="NGUOIDUNG" EntitySet="NGUOIDUNG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_THEMUON_LOAITHEMUON" Association="Self.FK_THEMUON_LOAITHEMUON">
+            <End Role="LOAITHEMUON" EntitySet="LOAITHEMUON" />
+            <End Role="THEMUON" EntitySet="THEMUON" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TRAM_XE" Association="Self.FK_TRAM_XE">
+            <End Role="TRAM" EntitySet="TRAM" />
+            <End Role="XE" EntitySet="XE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QL_ThueXeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="GOPY">
+          <Key>
+            <PropertyRef Name="MaGY" />
+          </Key>
+          <Property Name="MaGY" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TieuDe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NgayGui" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="NoiDung" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MaND" Type="Int32" />
+          <NavigationProperty Name="NGUOIDUNG" Relationship="Self.FK_NGUOIDUNG_GOPY" FromRole="GOPY" ToRole="NGUOIDUNG" />
+        </EntityType>
+        <EntityType Name="LOAITHEMUON">
+          <Key>
+            <PropertyRef Name="MaLoaiTheMuon" />
+          </Key>
+          <Property Name="MaLoaiTheMuon" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenLoaiTheMuon" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="THEMUON" Relationship="Self.FK_THEMUON_LOAITHEMUON" FromRole="LOAITHEMUON" ToRole="THEMUON" />
+        </EntityType>
+        <EntityType Name="LOAIXE">
+          <Key>
+            <PropertyRef Name="MaLoai" />
+          </Key>
+          <Property Name="MaLoai" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenLoai" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DonGia" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="XE" Relationship="Self.FK_LOAIXE_XE" FromRole="LOAIXE" ToRole="XE" />
+          <Property Name="AnhBia" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MUONXE">
+          <Key>
+            <PropertyRef Name="MaMuonXe" />
+          </Key>
+          <Property Name="MaMuonXe" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ThoiGianMuon" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ThoiGianTra" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MaXeMuon" Type="Int32" />
+          <Property Name="MaTheMuon" Type="Int32" />
+          <NavigationProperty Name="THEMUON" Relationship="Self.FK_MUONXE_THEMUON" FromRole="MUONXE" ToRole="THEMUON" />
+          <NavigationProperty Name="XE" Relationship="Self.FK_MUONXE_XE" FromRole="MUONXE" ToRole="XE" />
+        </EntityType>
+        <EntityType Name="NGUOIDUNG">
+          <Key>
+            <PropertyRef Name="MaNguoiDung" />
+          </Key>
+          <Property Name="MaNguoiDung" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenNguoiDung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GioiTinh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NgaySinh" Type="DateTime" Precision="0" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DiaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AnhDaiDien" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NgayTao" Type="DateTime" Precision="0" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Pass" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MaQTC" Type="Int32" />
+          <Property Name="MaTheMuon" Type="Int32" />
+          <NavigationProperty Name="GOPY" Relationship="Self.FK_NGUOIDUNG_GOPY" FromRole="NGUOIDUNG" ToRole="GOPY" />
+          <NavigationProperty Name="THEMUON" Relationship="Self.FK_NGUOIDUNG_THEMUON" FromRole="NGUOIDUNG" ToRole="THEMUON" />
+          <NavigationProperty Name="QUYENTRUYCAP" Relationship="Self.FK_QUYENTRUYCAP_NGUOIDUNG" FromRole="NGUOIDUNG" ToRole="QUYENTRUYCAP" />
+        </EntityType>
+        <EntityType Name="QUYENTRUYCAP">
+          <Key>
+            <PropertyRef Name="MaQTC" />
+          </Key>
+          <Property Name="MaQTC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenQTC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="NGUOIDUNG" Relationship="Self.FK_QUYENTRUYCAP_NGUOIDUNG" FromRole="QUYENTRUYCAP" ToRole="NGUOIDUNG" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="THEMUON">
+          <Key>
+            <PropertyRef Name="MaTheMuon" />
+          </Key>
+          <Property Name="MaTheMuon" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TaiKhoanNganHang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SoDu" Type="Int32" />
+          <Property Name="TenNganHang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaLoaiTheMuon" Type="Int32" />
+          <NavigationProperty Name="LOAITHEMUON" Relationship="Self.FK_THEMUON_LOAITHEMUON" FromRole="THEMUON" ToRole="LOAITHEMUON" />
+          <NavigationProperty Name="MUONXE" Relationship="Self.FK_MUONXE_THEMUON" FromRole="THEMUON" ToRole="MUONXE" />
+          <NavigationProperty Name="NGUOIDUNG" Relationship="Self.FK_NGUOIDUNG_THEMUON" FromRole="THEMUON" ToRole="NGUOIDUNG" />
+          <Property Name="PassTheMuon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TRAM">
+          <Key>
+            <PropertyRef Name="MaTram" />
+          </Key>
+          <Property Name="MaTram" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DiaChi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TinhTrang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Long" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Last" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="XE" Relationship="Self.FK_TRAM_XE" FromRole="TRAM" ToRole="XE" />
+        </EntityType>
+        <EntityType Name="XE">
+          <Key>
+            <PropertyRef Name="MaXe" />
+          </Key>
+          <Property Name="MaXe" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NgayThem" Type="DateTime" Precision="0" />
+          <Property Name="TinhTrang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MaLoai" Type="Int32" />
+          <Property Name="MaTram" Type="Int32" />
+          <NavigationProperty Name="LOAIXE" Relationship="Self.FK_LOAIXE_XE" FromRole="XE" ToRole="LOAIXE" />
+          <NavigationProperty Name="MUONXE" Relationship="Self.FK_MUONXE_XE" FromRole="XE" ToRole="MUONXE" />
+          <NavigationProperty Name="TRAM" Relationship="Self.FK_TRAM_XE" FromRole="XE" ToRole="TRAM" />
+        </EntityType>
+        <Association Name="FK_NGUOIDUNG_GOPY">
+          <End Role="NGUOIDUNG" Type="Self.NGUOIDUNG" Multiplicity="0..1" />
+          <End Role="GOPY" Type="Self.GOPY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NGUOIDUNG">
+              <PropertyRef Name="MaNguoiDung" />
+            </Principal>
+            <Dependent Role="GOPY">
+              <PropertyRef Name="MaND" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_THEMUON_LOAITHEMUON">
+          <End Role="LOAITHEMUON" Type="Self.LOAITHEMUON" Multiplicity="0..1" />
+          <End Role="THEMUON" Type="Self.THEMUON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOAITHEMUON">
+              <PropertyRef Name="MaLoaiTheMuon" />
+            </Principal>
+            <Dependent Role="THEMUON">
+              <PropertyRef Name="MaLoaiTheMuon" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LOAIXE_XE">
+          <End Role="LOAIXE" Type="Self.LOAIXE" Multiplicity="0..1" />
+          <End Role="XE" Type="Self.XE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOAIXE">
+              <PropertyRef Name="MaLoai" />
+            </Principal>
+            <Dependent Role="XE">
+              <PropertyRef Name="MaLoai" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MUONXE_THEMUON">
+          <End Role="THEMUON" Type="Self.THEMUON" Multiplicity="0..1" />
+          <End Role="MUONXE" Type="Self.MUONXE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="THEMUON">
+              <PropertyRef Name="MaTheMuon" />
+            </Principal>
+            <Dependent Role="MUONXE">
+              <PropertyRef Name="MaTheMuon" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MUONXE_XE">
+          <End Role="XE" Type="Self.XE" Multiplicity="0..1" />
+          <End Role="MUONXE" Type="Self.MUONXE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="XE">
+              <PropertyRef Name="MaXe" />
+            </Principal>
+            <Dependent Role="MUONXE">
+              <PropertyRef Name="MaXeMuon" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NGUOIDUNG_THEMUON">
+          <End Role="THEMUON" Type="Self.THEMUON" Multiplicity="0..1" />
+          <End Role="NGUOIDUNG" Type="Self.NGUOIDUNG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="THEMUON">
+              <PropertyRef Name="MaTheMuon" />
+            </Principal>
+            <Dependent Role="NGUOIDUNG">
+              <PropertyRef Name="MaTheMuon" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QUYENTRUYCAP_NGUOIDUNG">
+          <End Role="QUYENTRUYCAP" Type="Self.QUYENTRUYCAP" Multiplicity="0..1" />
+          <End Role="NGUOIDUNG" Type="Self.NGUOIDUNG" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QUYENTRUYCAP">
+              <PropertyRef Name="MaQTC" />
+            </Principal>
+            <Dependent Role="NGUOIDUNG">
+              <PropertyRef Name="MaQTC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TRAM_XE">
+          <End Role="TRAM" Type="Self.TRAM" Multiplicity="0..1" />
+          <End Role="XE" Type="Self.XE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRAM">
+              <PropertyRef Name="MaTram" />
+            </Principal>
+            <Dependent Role="XE">
+              <PropertyRef Name="MaTram" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QL_ThueXeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="GOPY" EntityType="Self.GOPY" />
+          <EntitySet Name="LOAITHEMUON" EntityType="Self.LOAITHEMUON" />
+          <EntitySet Name="LOAIXE" EntityType="Self.LOAIXE" />
+          <EntitySet Name="MUONXE" EntityType="Self.MUONXE" />
+          <EntitySet Name="NGUOIDUNG" EntityType="Self.NGUOIDUNG" />
+          <EntitySet Name="QUYENTRUYCAP" EntityType="Self.QUYENTRUYCAP" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="THEMUON" EntityType="Self.THEMUON" />
+          <EntitySet Name="TRAM" EntityType="Self.TRAM" />
+          <EntitySet Name="XE" EntityType="Self.XE" />
+          <AssociationSet Name="FK_NGUOIDUNG_GOPY" Association="Self.FK_NGUOIDUNG_GOPY">
+            <End Role="NGUOIDUNG" EntitySet="NGUOIDUNG" />
+            <End Role="GOPY" EntitySet="GOPY" />
+          </AssociationSet>
+          <AssociationSet Name="FK_THEMUON_LOAITHEMUON" Association="Self.FK_THEMUON_LOAITHEMUON">
+            <End Role="LOAITHEMUON" EntitySet="LOAITHEMUON" />
+            <End Role="THEMUON" EntitySet="THEMUON" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LOAIXE_XE" Association="Self.FK_LOAIXE_XE">
+            <End Role="LOAIXE" EntitySet="LOAIXE" />
+            <End Role="XE" EntitySet="XE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MUONXE_THEMUON" Association="Self.FK_MUONXE_THEMUON">
+            <End Role="THEMUON" EntitySet="THEMUON" />
+            <End Role="MUONXE" EntitySet="MUONXE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MUONXE_XE" Association="Self.FK_MUONXE_XE">
+            <End Role="XE" EntitySet="XE" />
+            <End Role="MUONXE" EntitySet="MUONXE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NGUOIDUNG_THEMUON" Association="Self.FK_NGUOIDUNG_THEMUON">
+            <End Role="THEMUON" EntitySet="THEMUON" />
+            <End Role="NGUOIDUNG" EntitySet="NGUOIDUNG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QUYENTRUYCAP_NGUOIDUNG" Association="Self.FK_QUYENTRUYCAP_NGUOIDUNG">
+            <End Role="QUYENTRUYCAP" EntitySet="QUYENTRUYCAP" />
+            <End Role="NGUOIDUNG" EntitySet="NGUOIDUNG" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TRAM_XE" Association="Self.FK_TRAM_XE">
+            <End Role="TRAM" EntitySet="TRAM" />
+            <End Role="XE" EntitySet="XE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QL_ThueXeModelStoreContainer" CdmEntityContainer="QL_ThueXeEntities">
+          <EntitySetMapping Name="GOPY">
+            <EntityTypeMapping TypeName="QL_ThueXeModel.GOPY">
+              <MappingFragment StoreEntitySet="GOPY">
+                <ScalarProperty Name="MaGY" ColumnName="MaGY" />
+                <ScalarProperty Name="TieuDe" ColumnName="TieuDe" />
+                <ScalarProperty Name="NgayGui" ColumnName="NgayGui" />
+                <ScalarProperty Name="NoiDung" ColumnName="NoiDung" />
+                <ScalarProperty Name="MaND" ColumnName="MaND" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LOAITHEMUON">
+            <EntityTypeMapping TypeName="QL_ThueXeModel.LOAITHEMUON">
+              <MappingFragment StoreEntitySet="LOAITHEMUON">
+                <ScalarProperty Name="MaLoaiTheMuon" ColumnName="MaLoaiTheMuon" />
+                <ScalarProperty Name="TenLoaiTheMuon" ColumnName="TenLoaiTheMuon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LOAIXE">
+            <EntityTypeMapping TypeName="QL_ThueXeModel.LOAIXE">
+              <MappingFragment StoreEntitySet="LOAIXE">
+                <ScalarProperty Name="AnhBia" ColumnName="AnhBia" />
+                <ScalarProperty Name="MaLoai" ColumnName="MaLoai" />
+                <ScalarProperty Name="TenLoai" ColumnName="TenLoai" />
+                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MUONXE">
+            <EntityTypeMapping TypeName="QL_ThueXeModel.MUONXE">
+              <MappingFragment StoreEntitySet="MUONXE">
+                <ScalarProperty Name="MaMuonXe" ColumnName="MaMuonXe" />
+                <ScalarProperty Name="ThoiGianMuon" ColumnName="ThoiGianMuon" />
+                <ScalarProperty Name="ThoiGianTra" ColumnName="ThoiGianTra" />
+                <ScalarProperty Name="MaXeMuon" ColumnName="MaXeMuon" />
+                <ScalarProperty Name="MaTheMuon" ColumnName="MaTheMuon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NGUOIDUNG">
+            <EntityTypeMapping TypeName="QL_ThueXeModel.NGUOIDUNG">
+              <MappingFragment StoreEntitySet="NGUOIDUNG">
+                <ScalarProperty Name="MaNguoiDung" ColumnName="MaNguoiDung" />
+                <ScalarProperty Name="TenNguoiDung" ColumnName="TenNguoiDung" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="AnhDaiDien" ColumnName="AnhDaiDien" />
+                <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Pass" ColumnName="Pass" />
+                <ScalarProperty Name="MaQTC" ColumnName="MaQTC" />
+                <ScalarProperty Name="MaTheMuon" ColumnName="MaTheMuon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QUYENTRUYCAP">
+            <EntityTypeMapping TypeName="QL_ThueXeModel.QUYENTRUYCAP">
+              <MappingFragment StoreEntitySet="QUYENTRUYCAP">
+                <ScalarProperty Name="MaQTC" ColumnName="MaQTC" />
+                <ScalarProperty Name="TenQTC" ColumnName="TenQTC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="QL_ThueXeModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="THEMUON">
+            <EntityTypeMapping TypeName="QL_ThueXeModel.THEMUON">
+              <MappingFragment StoreEntitySet="THEMUON">
+                <ScalarProperty Name="PassTheMuon" ColumnName="PassTheMuon" />
+                <ScalarProperty Name="MaTheMuon" ColumnName="MaTheMuon" />
+                <ScalarProperty Name="TaiKhoanNganHang" ColumnName="TaiKhoanNganHang" />
+                <ScalarProperty Name="SoDu" ColumnName="SoDu" />
+                <ScalarProperty Name="TenNganHang" ColumnName="TenNganHang" />
+                <ScalarProperty Name="MaLoaiTheMuon" ColumnName="MaLoaiTheMuon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRAM">
+            <EntityTypeMapping TypeName="QL_ThueXeModel.TRAM">
+              <MappingFragment StoreEntitySet="TRAM">
+                <ScalarProperty Name="MaTram" ColumnName="MaTram" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+                <ScalarProperty Name="Long" ColumnName="Long" />
+                <ScalarProperty Name="Last" ColumnName="Last" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="XE">
+            <EntityTypeMapping TypeName="QL_ThueXeModel.XE">
+              <MappingFragment StoreEntitySet="XE">
+                <ScalarProperty Name="MaXe" ColumnName="MaXe" />
+                <ScalarProperty Name="NgayThem" ColumnName="NgayThem" />
+                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+                <ScalarProperty Name="MaLoai" ColumnName="MaLoai" />
+                <ScalarProperty Name="MaTram" ColumnName="MaTram" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

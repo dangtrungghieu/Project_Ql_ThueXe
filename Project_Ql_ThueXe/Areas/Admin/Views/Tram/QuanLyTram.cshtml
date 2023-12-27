@@ -1,0 +1,204 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using Project_Ql_ThueXe.Models;
+@model PagedList.PagedList<Project_Ql_ThueXe.Models.TRAM>
+@using Newtonsoft.Json;
+@{
+    ViewBag.Title = "QuanLyTram";
+    Layout = "~/Areas/Admin/Views/Shared/Layout_Admin.cshtml";
+}
+@{
+    int STT = ViewBag.StartingIndex ?? 1;
+}
+<!--  css file link  -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+@*Css-Định dạng*@
+<link rel="stylesheet" href="~/Areas/Admin/Css/Button_Css.css" />
+<link rel="stylesheet" href="~/Areas/Admin/Css/Xe_Admin_Css.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+<style>
+    .MenuTrang {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        font-family: Arial, sans-serif;
+    }
+
+    .pagedList {
+        list-style-type: none;
+        margin-top: 15px;
+        padding: 0;
+        display: flex;
+    }
+
+        .pagedList li {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            color: #333;
+            cursor: pointer;
+        }
+
+            .pagedList li.active {
+                background-color: #007bff;
+                color: #fff;
+            }
+
+            .pagedList li:hover {
+                color: black;
+                background-color: #D7FCF5;
+            }
+
+    .custom-message {
+        color: white;
+        background-color: red;
+        padding: 8px 12px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        margin-top: 10px;
+        font-family: 'Times New Roman';
+    }
+</style>
+
+@*Code chức năng*@
+<h2 style="text-align:center; font-weight:bold; padding-top:20px;">DANH SÁCH TRẠM</h2>
+@if (!string.IsNullOrEmpty(ViewBag.ThongBao))
+{
+    <h4 class="custom-message">@ViewBag.ThongBao</h4>
+}
+<button onclick="window.location.href = '@Url.Action("ThemMoi_Tram","Tram")'" class="button-82-pushable" style="margin-left:5px;">
+    <span class="button-82-shadow"> </span>
+    <span class="button-82-edge"> </span>
+    <span class="button-82-front text" style="font-size:15px">
+        Thêm mới
+    </span>
+</button>
+<div class="row">
+    <div class="col-md-12">
+        <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
+            <table class="table manage-candidates-top mb-0">
+                <thead>
+                    <tr>
+                        <th class="text-center">STT</th>
+                        <th class="text-center">Mã trạm</th>
+                        <th class="text-center">Địa chỉ</th>
+                        <th class="text-center">Tình trạng</th>
+                        <th class="text-center">Long</th>
+                        <th class="text-center">Last</th>
+                        <th style="float:right">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="candidates-list">
+                            <td style="text-align:center;font-weight:bold;color:red">
+                                @STT
+                            </td>
+                            <td class="text-center">
+                                @item.MaTram
+                            </td>
+                            <td class="text-center">
+                                @TrunCate(item.DiaChi, 25)
+                            </td>
+                            <td class="candidate-list-favourite-time text-center">
+                                @if (item.TinhTrang.ToString() == "Đang hoạt động")
+                                {
+                                    <span class="status-span button-33" data-id="@item.MaTram" data-status="Đang hoạt động">@item.TinhTrang</span>
+                                }
+                                else if (item.TinhTrang.ToString() == "Ngừng hoạt động")
+                                {
+                                    <span class="status-span button-71" data-id="@item.MaTram" data-status="Ngừng hoạt động">@item.TinhTrang</span>
+                                }
+                                else if (item.TinhTrang.ToString() == "Đang sửa chữa")
+                                {
+                                    <span class="status-span button-62" data-id="@item.MaTram" data-status="Đang sửa chữa">@item.TinhTrang</span>
+                                }
+                            </td>
+                            <td class="candidate-list-favourite-time text-center">
+                                @item.Long
+                            </td>
+                            <td class="candidate-list-favourite-time text-center">
+                                @item.Last
+                            </td>
+                            <td>
+                                <ul class="list-unstyled mb-0 d-flex justify-content-end" style="align-items:center">
+                                    <li><a href="@Url.Action("XemChiTiet_Tram","Tram", new { id = item.MaTram})" class="text-primary detail-link"><i class="far fa-eye"></i></a></li>
+                                    <li><a href="@Url.Action("SuaThongTin_Tram","Tram", new { id = item.MaTram})" class="text-info"><i class="fas fa-pencil-alt"></i></a></li>
+                                    <li><a href="@Url.Action("Xoa_Tram","Tram", new { id = item.MaTram})" class="text-danger"><i class="far fa-trash-alt"></i></a></li>
+                                    <li><a href="@Url.Action("PhanBo_Tram","Tram", new { id = item.MaTram})" class="text-success"><i class="fas fa-map-marker-alt"></i></a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                        STT++;
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="MenuTrang pagedList">
+            @Html.PagedListPager(
+                Model,
+                page => Url.Action("QuanLyXe", "Xe", new { iMaTram = ViewBag.MaTram, page = page })
+            )
+        </div>
+    </div>
+</div>
+<div id="map" style="height: 300px; margin-top: 20px; margin-bottom:20px; margin-left:20px;margin-right:20px"></div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+@*Script sửa nhanh tình trạng trạm*@
+<script>
+    $(document).ready(function () {
+        $('.status-span').click(function () {
+            var tramId = $(this).data('id');
+
+            $.ajax({
+                url: '/Tram/UpdateSessionStatus',
+                type: 'POST',
+                data: { tramId: tramId },
+                success: function (response) {
+                    var spanToUpdate = $('.status-span[data-id="' + tramId + '"]');
+                    var newStatus = response;
+                    spanToUpdate.removeClass('button-33 button-71 button-62');
+                    if (newStatus === "Đang hoạt động") {
+                        spanToUpdate.addClass('button-33');
+                    } else if (newStatus === "Ngừng hoạt động") {
+                        spanToUpdate.addClass('button-71');
+                    } else if (newStatus === "Đang sửa chữa") {
+                        spanToUpdate.addClass('button-62');
+                    }
+                    spanToUpdate.text(newStatus);
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+    });
+</script>
+@helper TrunCate(string s, int length)
+{if (s.Length < length)
+    {
+        @s }
+    else
+    {
+        @s.Substring(0, length)<text>...</text>}
+}
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var map = L.map('map').setView([10.980496, 106.675572], 30);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+        @foreach (var item in Model)
+        {
+            <text>
+            L.marker([@item.Long, @item.Last]).addTo(map)
+                .bindPopup("Trạm số" + " @item.MaTram");
+            </text>
+        }
+    });
+</script>

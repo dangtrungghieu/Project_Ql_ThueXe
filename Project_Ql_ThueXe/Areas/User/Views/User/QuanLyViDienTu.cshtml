@@ -1,0 +1,94 @@
+﻿@using Project_Ql_ThueXe.Models;
+
+@{
+    NGUOIDUNG nGUOIDUNG = (NGUOIDUNG)Session["TaiKhoan"];
+    var thongbao = Session["TaiKhoan"];
+}
+
+@{
+    ViewBag.Title = "QuanLyViDienTu";
+    Layout = "~/Areas/User/Views/Shared/LayoutUser.cshtml";
+}
+
+@if (nGUOIDUNG.MaTheMuon == null)
+{
+    <div class="container mt-5">
+        <div class="card mx-auto" style="max-width: 300px;">
+            <div class="card-header">
+                <h2 class="text-center">Liên kết</h2>
+            </div>
+            <div class="card-body">
+                @using (Html.BeginForm())
+                {
+                    <form id="bankForm">
+                        <div class="form-group">
+                            <label for="sMaTheMuon">Mã Thẻ:</label>
+                            <input name="sMaTheMuon" type="text" placeholder="Nhập Số Trên Thẻ" onkeypress="return event.charCode >= 48 && event.charCode <= 57" class="form-control" id="sMaTheMuon" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sPassThe">Mật Khẩu:</label>
+                            <input name="sPassThe" type="password" placeholder="Nhập Mật Khẩu" class="form-control" id="sPassThe" required>
+                        </div>
+                        <div class="text-center" style="color:red">@ViewBag.ThongBao</div>
+                        <button style="margin-top: 30px; margin-bottom: 20px" type="submit" class="btn btn-primary btn-block">Liên Kết</button>
+                    </form>
+                }
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="successModalLabel">Liên kết thành công</h5>
+                    </div>
+                    <div class="modal-body">
+                        Thông báo: Tài khoản của bạn đã được liên kết thành công.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+<div class="text-center">
+    <h2 style="margin-top: 60px" class="mb-4">Số Dư Thẻ Mượn</h2>
+    <p class="display-5 font-weight-bold text-primary mb-4">@nGUOIDUNG.THEMUON.SoDu VNĐ</p>
+
+    <div class="row mb-3">
+        <div class="col">
+            <h4 style="margin-left: 250px">Bank: @nGUOIDUNG.THEMUON.TenNganHang</h4>
+        </div>
+        <div class="col">
+            <h4 style="margin-right: 250px">STK: @nGUOIDUNG.THEMUON.TaiKhoanNganHang</h4>
+        </div>
+        <div class="col">
+            <h4 style="margin-right: 10px">Loại thẻ: @nGUOIDUNG.THEMUON.LOAITHEMUON.TenLoaiTheMuon</h4>
+        </div>
+    </div>
+    <div style="margin-top: 60px" class="row">
+        <div class="col">
+            <a href="@Url.Action("Payment","User")" class="btn btn-primary btn-block" style="max-width: 150px; margin-left: 400px">Nạp Tiền Vào Thẻ</a>
+        </div>
+        <div class="col">
+            <a href="@Url.Action("HoanTraThe", "User")" class="btn btn-secondary btn-block" style="max-width: 150px">Hoàn Trả Thẻ</a>
+        </div>
+    </div>
+</div>
+}
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script>
+    function submitForm() {
+        // Thực hiện xử lý liên kết ở đây (có thể là AJAX request hoặc các bước xử lý khác)
+
+        // Hiển thị modal khi liên kết thành công
+        $('#successModal').modal('show');
+    }
+</script>
+

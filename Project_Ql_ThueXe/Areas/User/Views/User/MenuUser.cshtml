@@ -1,0 +1,47 @@
+﻿
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+<style>
+    .sidebar-sticky .nav-link {
+        font-size: 18px; /* Đặt kích thước chữ */
+        font-weight: bold; /* Làm đậm chữ */
+    }
+</style>
+
+<!-- Vertical Navbar -->
+<nav class="d-md-block bg-light sidebar">
+    <div class="sidebar-sticky" style="min-height: 100vh; overflow-y: auto;">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="@Url.Action("Index", "User")" style="margin-top: 30px; border-bottom: 1px solid #ddd;">
+                    <i class="fas fa-user"></i> Quản lý thông tin cá nhân
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("QuanLyViDienTu", "User")" style="margin-top: 30px; border-bottom: 1px solid #ddd;">
+                    <i class="fas fa-wallet"></i> Quản lý ví điện tử
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("#", "User")" style="margin-top: 30px; border-bottom: 1px solid #ddd;">
+                    <i class="fas fa-history"></i> Quản lý lịch sử
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Logout", "User")" style="margin-top: 30px; border-bottom: 1px solid #ddd;">
+                    <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("GopY", "User")" style="margin-top: 30px; border-bottom: 1px solid #ddd;">
+                    <i class="fas fa-envelope"></i> Yêu cầu góp ý
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>

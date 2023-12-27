@@ -1,0 +1,107 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using Project_Ql_ThueXe.Models;
+@model PagedList.PagedList<Project_Ql_ThueXe.Models.GOPY>
+@{
+    ViewBag.Title = "QuanLyGopY";
+    Layout = "~/Areas/Admin/Views/Shared/Layout_Admin.cshtml";
+}
+
+@{
+    int STT = ViewBag.StartingIndex ?? 1;
+}
+
+
+
+@*Css-Định dạng*@
+<link rel="stylesheet" href="~/Areas/Admin/Css/Button_Css.css" />
+<link rel="stylesheet" href="~/Areas/Admin/Css/Xe_Admin_Css.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+<style>
+    .MenuTrang {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        font-family: Arial, sans-serif;
+    }
+
+    .pagedList {
+        list-style-type: none;
+        margin-top: 15px;
+        padding: 0;
+        display: flex;
+    }
+
+        .pagedList li {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            color: #333;
+            cursor: pointer;
+        }
+
+            .pagedList li.active {
+                background-color: #007bff;
+                color: #fff;
+            }
+
+            .pagedList li:hover {
+                color: black;
+                background-color: #D7FCF5;
+            }
+</style>
+<div class="tieuDe">
+    <h2 class="text-center" style="margin-top: 20px; color: #15031B;">QUẢN LÝ YÊU CẦU GÓP Ý</h2>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
+            <table class="table manage-candidates-top mb-0">
+                <thead>
+                    <tr>
+                        <th class="text-center">STT</th>
+                        <th class="text-center">Mã Góp ý</th>
+                        <th class="text-center">Tiêu đề</th>
+                        <th class="text-center">Ngày gửi</th>
+                        <th class="text-center">Nội dung</th>
+                        <th class="text-center">Người gửi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="candidates-list">
+                            <td style="text-align:center;font-weight:bold;color:red">
+                                @STT
+                            </td>
+                            <td class="text-center">
+                                @item.MaGY
+                            </td>
+                            <td class="text-center">
+                                @item.TieuDe
+                            </td>
+                            <td class="candidate-list-favourite-time text-center">
+                                @Html.FormatValue(item.NgayGui, "{0:dd/MM/yyyy}")
+                            </td>
+                            <td class="candidate-list-favourite-time text-center">
+                                @item.NoiDung
+                            </td>
+                            <td class="candidate-list-favourite-time text-center">
+                                @item.NGUOIDUNG.TenNguoiDung
+                            </td>
+                        </tr>
+                        STT++;
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="MenuTrang pagedList">
+            @Html.PagedListPager(
+                Model,
+                page => Url.Action("QuanLyGopY", "QuanLyGopY", new { iMaGY = ViewBag.MaGY, page = page })
+            )
+        </div>
+    </div>
+</div>

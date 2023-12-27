@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "DoiMatKhau";
+    Layout = "~/Areas/User/Views/Shared/LayoutUser.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <h3 style="padding-top: 30px" class="text-center mb-4">Đổi Mật Khẩu</h3>
+
+    @* Thêm form đổi mật khẩu *@
+    <form id="changePasswordForm">
+        <div class="mb-3">
+            <label for="currentPassword" class="form-label">Mật khẩu hiện tại:</label>
+            <input type="password" class="form-control" id="currentPassword" name="sPass" required>
+        </div>
+        <div class="mb-3">
+            <label for="newPassword" class="form-label">Mật khẩu mới:</label>
+            <input type="password" class="form-control" id="newPassword" name="sNewPass" required>
+        </div>
+        <div class="mb-3">
+            <label for="confirmNewPassword" class="form-label">Nhập lại mật khẩu mới:</label>
+            <input type="password" class="form-control" id="confirmNewPassword" name="sConfirmNewPass" required>
+        </div>
+        <div class="text-center" style="margin-top: 30px">
+            <button type="submit" class="btn btn-primary">Xác nhận</button>
+        </div>
+    </form>
+}

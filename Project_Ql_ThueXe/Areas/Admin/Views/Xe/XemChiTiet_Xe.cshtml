@@ -1,0 +1,66 @@
+﻿@using Project_Ql_ThueXe.Models
+@{
+    ViewBag.Title = "XemChiTiet_Xe";
+    Layout = "~/Areas/Admin/Views/Shared/Layout_Admin.cshtml";
+}
+<link rel="stylesheet" href="~/Areas/Admin/Css/XemChiTietXe_Css.css" />
+<div class="container">
+    <div class="tieuDe">
+        <h2 class="text-center" style="margin-top: 20px; color: #15031B;">THÔNG TIN CHI TIẾT XE</h2>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-6">
+            <fieldset class="custom-fieldset">
+                <legend><i class="fas fa-wrench"></i><span> Thông tin xe </span><i class="fas fa-wrench"></i></legend>
+                <div class="custom-card">
+                    <div>
+                        <h4><i class="fas fa-bicycle"></i> Mã xe: @Model.MaXe</h4>
+                        <h4><i class="fas fa-calendar-day"></i> Ngày tạo: @Html.FormatValue(Model.NgayThem, "{0:dd/MM/yyyy}")</h4>
+                        @if (Model.MaLoai == null)
+                        {
+                        <h4><i class="fas fa-list-alt"></i> Loại xe: Không</h4>
+                        <h4><i class="fas fa-money-check-alt"></i> Đơn giá thuê: Chưa có loại xe</h4>
+                        }
+                        else
+                        { <h4><i class="fas fa-list-alt"></i> Loại xe: @Model.LOAIXE.TenLoai</h4>
+                        <h4><i class="fas fa-money-check-alt"></i> Đơn giá thuê: @Html.FormatValue(Model.LOAIXE.DonGia, "{0:#,##0}")/giờ</h4>
+                        }
+                        <h4><i class="fas fa-check-circle"></i> Tình trạng: @Model.TinhTrang</h4>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-md-6">
+            <fieldset class="custom-fieldset">
+                <legend><i class="fas fa-warehouse"></i><span> Thông tin trạm </span><i class="fas fa-warehouse"></i></legend>
+                <div class="custom-card">
+                    <div>
+                        @if (Model.MaTram == null)
+                        {
+                            <h4><i class="fas fa-house-user"></i> Trạm hiện tại: Không có trạm</h4>
+                        }
+                        else
+                        {
+                            <h4><i class="fas fa-house-user"></i> Trạm hiện tại: @Model.MaTram</h4>
+                            <h4><i class="fas fa-house-user"></i> Địa chỉ: @Model.TRAM.DiaChi</h4>
+                            <h4><i class="fas fa-check-circle"></i> Tình trạng: @Model.TRAM.TinhTrang</h4>
+                        }
+
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center" style="margin-top: 20px;">
+            <a href="@Url.Action("SuaThongTinXe_Xe","Xe", new { id = Model.MaXe})" class="btn btn-warning" role="button"><i class="fas fa-edit"></i> Sửa</a>
+            <a href="@Url.Action("Xoa_Xe","Xe", new { id = Model.MaXe})" class="btn btn-danger" role="button"><i class="fas fa-trash-alt"></i> Xóa</a>
+        </div>
+    </div>
+    <div class="mg-top">
+        <a href="@Url.Action("QuanLyXe","Xe")" class="btn btn-primary" style="margin-top: 60px; margin-bottom: 10px; margin-left: 10px"><i class="fa-solid fa-arrow-left"></i> Quay lại trang quản lý xe</a>
+    </div>
+</div>
+

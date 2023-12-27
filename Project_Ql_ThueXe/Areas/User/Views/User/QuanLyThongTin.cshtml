@@ -1,0 +1,54 @@
+﻿@using Project_Ql_ThueXe.Models;
+
+@{
+    NGUOIDUNG nGUOIDUNG = (NGUOIDUNG)Session["TaiKhoan"];
+}
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/User/Views/Shared/LayoutUser.cshtml";
+}
+
+
+<div class="row" style="padding-top: 30px">
+    <div class="col-md-12">
+        <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
+            <!-- Thêm thẻ form để bao quanh các trường nhập liệu -->
+            @using (Html.BeginForm())
+            {
+                <table class="table manage-candidates-top mb-0">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Họ và tên</th>
+                            <th class="text-center">Giới tính</th>
+                            <th class="text-center">Email</th>
+                            <th class="text-center">Địa chỉ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="candidates-list">
+                            <td class="text-center">
+                                <!-- Sửa lại style và thêm class để sử dụng Bootstrap -->
+                                <input type="text" name="sTenNguoiDung" value="@nGUOIDUNG.TenNguoiDung" class="form-control" />
+                            </td>
+                            <td class="text-center">
+                                <!-- Sửa lại style và thêm class để sử dụng Bootstrap -->
+                                <input type="text" name="sGioiTinh" value="@nGUOIDUNG.GioiTinh" class="form-control" />
+                            </td>
+                            <td class="text-center">
+                                <!-- Sửa lại style và thêm class để sử dụng Bootstrap -->
+                                <input type="text" name="sEmail" value="@nGUOIDUNG.Email" class="form-control" />
+                            </td>
+                            <td class="text-center">
+                                <!-- Sửa lại style và thêm class để sử dụng Bootstrap -->
+                                <input type="text" name="sDiaChi" value="@nGUOIDUNG.DiaChi" class="form-control" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- Thêm nút "Cập nhật" để submit form -->
+                <button class="btn btn-primary" type="submit" style="margin-left:40%; margin-top:20px;">Cập nhật</button>
+            }
+        </div>
+    </div>
+</div>

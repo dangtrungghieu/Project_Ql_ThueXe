@@ -1,0 +1,62 @@
+﻿@model  Project_Ql_ThueXe.Models.XE
+@{
+    ViewBag.Title = "ChiTietXe";
+    Layout = "~/Views/Shared/LayoutHome.cshtml";
+}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+<div style="padding-top: 20px" class="container mt-4">
+    <h2 style="text-align: center"><strong>Thông Tin Sản Phẩm</strong></h2>
+    <div style="padding-top: 30px" class="row">
+        <!-- Hình ảnh sản phẩm (bên trái) -->
+        <div class="col-md-6">
+            <img src="~/Images/XeThuong.jpg" alt="Hình ảnh xe đạp" class="img-fluid">
+            @*@if (Model.MaLoai == 1)
+            {
+                <img src="~/Images/XeThuong.jpg" alt="Hình ảnh xe đạp" class="img-fluid">
+            }
+            else if (Model.MaLoai == 2)
+            {
+                <img src="~/Images/XeDapDoi.jpg" alt="Hình ảnh xe đạp" class="img-fluid">
+            }
+            else
+            {
+                <img src="~/Images/XeTheThao.jpg" alt="Hình ảnh xe đạp" class="img-fluid">
+            }*@
+        </div>
+
+        <!-- Thông tin cơ bản (bên phải) -->
+        <div class="col-md-6">
+            <h3>Tên Xe Đạp</h3>
+            <p>Giá: $500</p>
+            <p>Mô tả ngắn về sản phẩm...</p>
+        </div>
+    </div>
+    <!-- Thông số kỹ thuật -->
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h3 class="text-center">Thông Số Kỹ Thuật</h3>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Khung</td>
+                        <td>Khung nhôm</td>
+                    </tr>
+                    <tr>
+                        <td>Bánh xe</td>
+                        <td>27.5 inch</td>
+                    </tr>
+                    <tr>
+                        <td>Trọng lượng</td>
+                        <td>10 kg</td>
+                    </tr>
+                    <!-- Thêm thông số kỹ thuật khác -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+

@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/LayoutUser.cshtml";
+}
+
+<style>
+    .custom-form {
+        width: 60%;
+    }
+</style>
+
+@using (Html.BeginForm())
+{
+    <div class="container" style="padding-bottom: 100px; padding-top: 30px">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h6 style="text-align:center">
+                    <strong>
+                        CẢM ƠN BẠN ĐÃ CHỌN ĐẶT NIỀM TIN VÀO NHỮNG CHUYẾN XE XANH CỦA
+                        NHÀ<span style="background-color: #96db56; border-radius: 7px; padding: 1px;">DHGo</span>
+                    </strong>
+                </h6>
+                <div class="card" style="margin-top: 30px">
+                    <div class="card-body">
+                        <div class="text-center" style="color:red">@ViewBag.ThongBao</div>
+                        <h2 class="card-title text-center mb-4">Đăng Nhập</h2>
+                        <form class="mx-auto" style="width: 60%;">
+                            <div style="margin-left: 120px;" class="mb-3">
+                                <label for="username" class="form-label">Tên đăng nhập</label>
+                                <input style="width: 75%" name="sTenDN" type="text" class="form-control" id="username" placeholder="Nhập tên đăng nhập" required>
+                            </div>
+                            <div style="margin-left: 120px;" class="mb-3">
+                                <label for="password" class="form-label">Mật khẩu</label>
+                                <input style="width: 75%" name="sMatKhau" type="password" class="form-control custom-form" id="confirm-password" placeholder="Nhập lại mật khẩu">
+                            </div>
+                            <div class="text-center">
+                                <a href="#" class="text-decoration-none">Lưu đăng nhập</a>
+                                <a href="#" class="text-decoration-none" style="margin-left: 60px;">Quên mật khẩu?</a>
+                            </div>
+                            <div class="d-grid mb-3 mx-auto">
+                                <button type="submit" class="btn btn-primary custom-form" style="margin-top:20px; margin-left:120px">Đăng Nhập</button>
+                            </div>
+                        </form>
+                        <div class="text-center mt-3">
+                            Chưa có tài khoản? <a href="@Url.Action("Register", "Users")" class="text-decoration-none">Đăng ký ngay</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+}
+

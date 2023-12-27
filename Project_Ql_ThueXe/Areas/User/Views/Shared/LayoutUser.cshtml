@@ -1,0 +1,52 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title>@ViewBag.Title</title>
+    <style>
+        .card {
+            width: 100%;
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: 200px; /* Đặt chiều cao mong muốn */
+            object-fit: cover; /* Đảm bảo hình ảnh không bị méo */
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            @Html.Action("NavUser", "User")
+        </nav>
+        <div class="row" style="background-color: #aaddd0">
+            <div class="col-md-3" style="min-height: 100vh; overflow-y: auto;">
+                <!-- MenuUser sẽ chiếm chiều dài tối đa của body và có thanh cuộn nếu nội dung quá dài -->
+                @Html.Action("MenuUser", "User")
+            </div>
+            <div class="col-md-9">
+                <!-- Nội dung chính của trang sẽ nằm bên phải MenuUser -->
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+
+
+    <footer class="mt-5">
+        @Html.Action("foster", "User")
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

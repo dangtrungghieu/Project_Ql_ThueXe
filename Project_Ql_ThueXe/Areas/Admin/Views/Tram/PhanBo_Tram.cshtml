@@ -1,0 +1,205 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using Project_Ql_ThueXe.Models;
+@model PagedList.PagedList<Project_Ql_ThueXe.Models.XE>
+@{
+    ViewBag.Title = "PhanBo_Tram";
+    Layout = "~/Areas/Admin/Views/Shared/Layout_Admin.cshtml";
+}
+<style>
+    .custom-box {
+        border: 2px solid #007bff; /* Viền màu xanh */
+        border-radius: 10px; /* Bo tròn viền */
+        padding: 10px; /* Khoảng cách nội dung và viền */
+        margin-bottom: 10px; /* Khoảng cách giữa các ô */
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+
+    .custom-message {
+        color: white;
+        background-color: red;
+        padding: 8px 12px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        margin-top: 10px;
+        font-family: 'Times New Roman';
+    }
+
+    .MenuTrang {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        font-family: Arial, sans-serif;
+    }
+
+    .pagedList {
+        list-style-type: none;
+        margin-top: 15px;
+        padding: 0;
+        display: flex;
+    }
+
+        .pagedList li {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            color: #333;
+            cursor: pointer;
+        }
+
+            .pagedList li.active {
+                background-color: #007bff;
+                color: #fff;
+            }
+
+            .pagedList li:hover {
+                color: black;
+                background-color: #D7FCF5;
+            }
+</style>
+
+
+<link rel="stylesheet" href="~/Areas/Admin/fonts/icomoon/style.css">
+<link rel="stylesheet" href="~/Areas/Admin/Css_Table/owl.carousel.min.css">
+<link rel="stylesheet" href="~/Areas/Admin/Css_Table/bootstrap.min.css">
+<link rel="stylesheet" href="~/Areas/Admin/Css_Table/style.css">
+<link rel="stylesheet" href="~/Areas/Admin/Css/Xe_Admin_Css.css" />
+<link rel="stylesheet" href="~/Areas/Admin/Css/XemChiTietXe_Css.css" />
+
+<div class="tieuDe">
+    <h2 class="text-center" style="margin-top: 20px; color: #15031B;">PHÂN BỔ XE VÀO TRẠM - @ViewBag.MaTram </h2>
+</div>
+
+<h4 class="custom-message">Vui lòng chọn các xe bạn muốn phân bổ! Trừ những xe đang được mượn!</h4>
+@if (!string.IsNullOrEmpty(ViewBag.ThongBao))
+{
+    <h4 class="custom-message">@ViewBag.ThongBao</h4>
+}
+<form id="myForm" method="post" action="/Tram/PhanBo_Tram">
+    <div class="table-responsive">
+        <h2 style="text-align:center; font-weight:bold; padding-top:20px;">DANH SÁCH XE</h2>
+        <table class="table custom-table">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        <label class="control control--checkbox">
+                            <input type="checkbox" class="js-check-all" />
+                            <div class="control__indicator"></div>
+                        </label>
+                    </th>
+                    <th scope="col">Mã xe</th>
+                    <th scope="col">Loại xe</th>
+                    <th scope="col">Đơn giá</th>
+                    <th scope="col">Tình trạng</th>
+                    <th scope="col">Trạm hiện tại</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <th scope="row">
+                            <label class="control control--checkbox">
+                                <input type="checkbox" />
+                                <div class="control__indicator"></div>
+                            </label>
+                        </th>
+                        <td>
+                            @item.MaXe
+                        </td>
+                        <td>
+                            @if (item.MaLoai == null)
+                            {
+                                <span>Không có loại xe</span>
+                            }
+                            else
+                            {
+                                @item.LOAIXE.TenLoai
+                            }
+                        </td>
+                        <td>
+                            @if (item.MaLoai == null)
+                            {
+                                <span>Chưa có loại xe</span>
+                            }
+                            else
+                            {
+                                <span>@Html.FormatValue(item.LOAIXE.DonGia, "{0:#,##0}")/giờ</span>
+                            }
+                        </td>
+                        <td>
+                            @if (item.TinhTrang.ToString() == "Chưa được mượn")
+                            {
+                                <span class="status-span" style="font-family:'Times New Roman';background-color: green; border-radius: 10px; padding: 10px; color: white;" data-id="@item.MaXe" data-status="Chưa được mượn">@item.TinhTrang</span>
+                            }
+                            else if (item.TinhTrang.ToString() == "Đang được mượn")
+                            {
+                                <span class="status-span" style="font-family: 'Times New Roman'; background-color: red; border-radius: 10px; padding: 10px; color: white;" data-id="@item.MaXe" data-status="Đang được mượn">@item.TinhTrang</span>
+                            }
+                            else if (item.TinhTrang.ToString() == "Đang sửa chữa")
+                            {
+                                <span class="status-span" style="font-family: 'Times New Roman'; background-color: yellow; border-radius: 10px; padding: 10px; color: black;" data-id="@item.MaXe" data-status="Đang sửa chữa">@item.TinhTrang</span>
+                            }
+
+                        </td>
+                        <td>
+                            @if (item.MaTram == null)
+                            {
+                                <span>Không có trạm</span>
+                            }
+                            else
+                            {
+                                <span>@item.MaTram</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="MenuTrang pagedList">
+            @Html.PagedListPager(
+                Model,
+                page => Url.Action("PhanBo_Tram", "Tram", new { iMaTram = ViewBag.MaTram, page = page })
+            )
+        </div>
+    </div>
+    <div>
+        <button class="formbold-btn" type="submit" style="margin-left:500px;">Phân bổ xe</button>
+        <div style="color:red; font-size:15px; font-weight:bold">@ViewBag.ThongBao3</div>
+    </div>
+</form>
+
+<script src="~/Areas/Admin/js/jquery-3.3.1.min.js"></script>
+<script src="~/Areas/Admin/js/popper.min.js"></script>
+<script src="~/Areas/Admin/js/bootstrap.min.js"></script>
+<script src="~/Areas/Admin/js/main.js"></script>
+<a href="@Url.Action("QuanLyTram","Tram")" class="btn btn-primary" style="margin-top:40px; margin-bottom:10px; margin-left:10px"><i class="fa-solid fa-arrow-left"></i> Quay lại trang quản lý trạm</a>
+<script>
+    document.getElementById('myForm').addEventListener('submit', function(event) {
+    event.preventDefault(); 
+
+    var tramId = '@ViewBag.MaTram';
+
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(function(checkbox) {
+        if (checkbox.checked) {
+            var carId = checkbox.parentElement.parentElement.parentElement.querySelector('td:nth-child(2)').innerText;
+            var carInput = document.createElement('input');
+            carInput.setAttribute('type', 'hidden');
+            carInput.setAttribute('name', 'SelectedCars');
+            carInput.setAttribute('value', carId);
+            document.getElementById('myForm').appendChild(carInput);
+        }
+    });
+    var tramIdInput = document.createElement('input');
+    tramIdInput.setAttribute('type', 'hidden');
+    tramIdInput.setAttribute('name', 'TramId');
+    tramIdInput.setAttribute('value', tramId);
+    document.getElementById('myForm').appendChild(tramIdInput);
+    document.getElementById('myForm').submit();
+});
+
+</script>

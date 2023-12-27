@@ -1,0 +1,187 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using Project_Ql_ThueXe.Models;
+@model PagedList.PagedList<Project_Ql_ThueXe.Models.XE>
+@{
+    ViewBag.Title = "QuanLyXe";
+    Layout = "~/Areas/Admin/Views/Shared/Layout_Admin.cshtml";
+}
+@{
+    int STT = ViewBag.StartingIndex ?? 1;
+}
+
+
+
+@*Css-Định dạng*@
+<link rel="stylesheet" href="~/Areas/Admin/Css/Button_Css.css" />
+<link rel="stylesheet" href="~/Areas/Admin/Css/Xe_Admin_Css.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+<style>
+    .MenuTrang {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        font-family: Arial, sans-serif;
+    }
+
+    .pagedList {
+        list-style-type: none;
+        margin-top: 15px;
+        padding: 0;
+        display: flex;
+    }
+
+        .pagedList li {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            color: #333;
+            cursor: pointer;
+        }
+
+            .pagedList li.active {
+                background-color: #007bff;
+                color: #fff;
+            }
+
+            .pagedList li:hover {
+                color: black;
+                background-color: #D7FCF5;
+            }
+</style>
+
+
+
+
+@*Code chức năng*@
+<h2 style="text-align:center; font-weight:bold; padding-top:20px;">DANH SÁCH XE</h2>
+<button onclick="window.location.href = '@Url.Action("ThemMoi_Xe","Xe")'" class="button-82-pushable" style="margin-left:5px;">
+    <span class="button-82-shadow"> </span>
+    <span class="button-82-edge"> </span>
+    <span class="button-82-front text" style="font-size:15px">
+        Thêm mới
+    </span>
+</button>
+<button onclick="window.location.href = '@Url.Action("LoaiXe","Xe")'" class="button-82-pushable" style="margin-left:5px;">
+    <span class="button-82-shadow"> </span>
+    <span class="button-82-edge"> </span>
+    <span class="button-82-front text" style="font-size:15px">
+        Danh sách loại xe
+    </span>
+</button>
+<div class="row">
+    <div class="col-md-12">
+        <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
+            <table class="table manage-candidates-top mb-0">
+                <thead>
+                    <tr>
+                        <th class="text-center">STT</th>
+                        <th class="text-center">Mã xe</th>
+                        <th class="text-center">Loại xe</th>
+                        <th class="text-center">Tình trạng</th>
+                        <th class="text-center">Ngày thêm</th>
+                        <th class="text-center">Trạm hiện tại</th>
+                        <th style="float:right">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="candidates-list">
+                            <td style="text-align:center;font-weight:bold;color:red">
+                                @STT
+                            </td>
+                            <td class="text-center">
+                                @item.MaXe
+                            </td>
+                            <td class="text-center">
+                                @if (item.MaLoai == null)
+                                {
+                                    <span>Không có loại xe</span>
+                                }
+                                else
+                                {
+                                    @item.LOAIXE.TenLoai
+                                }
+                            </td>
+                            <td class="candidate-list-favourite-time text-center">
+                                @if (item.TinhTrang.ToString() == "Chưa được mượn")
+                                {
+                                    <span class="status-span button-33" data-id="@item.MaXe" data-status="Chưa được mượn">@item.TinhTrang</span>
+                                }
+                                else if (item.TinhTrang.ToString() == "Đang được mượn")
+                                {
+                                    <span class="status-span button-71" data-id="@item.MaXe" data-status="Đang được mượn">@item.TinhTrang</span>
+                                }
+                                else if (item.TinhTrang.ToString() == "Đang sửa chữa")
+                                {
+                                    <span class="status-span button-62" data-id="@item.MaXe" data-status="Đang sửa chữa">@item.TinhTrang</span>
+                                }
+                            </td>
+                            <td class="candidate-list-favourite-time text-center">
+                                @Html.FormatValue(item.NgayThem, "{0:dd/MM/yyyy}")
+                            </td>
+                            <td class="candidate-list-favourite-time text-center">
+                                @if (item.MaTram == null)
+                                {
+                                    <span>Không có trạm</span>
+                                }
+                                else
+                                {
+                                    <span>@item.TRAM.MaTram</span>
+                                }
+                            </td>
+                            <td>
+                                <ul class="list-unstyled mb-0 d-flex justify-content-end" style="align-items:center">
+                                    <li><a href="@Url.Action("XemChiTiet_Xe","Xe", new { id = item.MaXe})" class="text-primary detail-link"><i class="far fa-eye"></i></a></li>
+                                    <li><a href="@Url.Action("SuaThongTinXe_Xe","Xe", new { id = item.MaXe})" class="text-info"><i class="fas fa-pencil-alt"></i></a></li>
+                                    <li><a href="@Url.Action("Xoa_Xe","Xe", new { id = item.MaXe})" class="text-danger"><i class="far fa-trash-alt"></i></a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                        STT++;
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="MenuTrang pagedList">
+            @Html.PagedListPager(
+                Model,
+                page => Url.Action("QuanLyXe", "Xe", new { iMaXe = ViewBag.MaXe, page = page })
+            )
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+@*Script sửa nhanh tình trạng xe*@
+<script>
+    $(document).ready(function () {
+        $('.status-span').click(function () {
+            var vehicleId = $(this).data('id');
+
+            $.ajax({
+                url: '/Xe/UpdateSessionStatus',
+                type: 'POST',
+                data: { vehicleId: vehicleId },
+                success: function (response) {
+                    var spanToUpdate = $('.status-span[data-id="' + vehicleId + '"]');
+                    var newStatus = response;
+                    spanToUpdate.removeClass('button-33 button-71 button-62');
+                    if (newStatus === "Chưa được mượn") {
+                        spanToUpdate.addClass('button-33');
+                    } else if (newStatus === "Đang được mượn") {
+                        spanToUpdate.addClass('button-71');
+                    } else if (newStatus === "Đang sửa chữa") {
+                        spanToUpdate.addClass('button-62');
+                    }
+                    spanToUpdate.text(newStatus);
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+    });
+</script>

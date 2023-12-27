@@ -1,0 +1,68 @@
+﻿@using Project_Ql_ThueXe.Models
+@{
+    ViewBag.Title = "XemChiTiet_NguoiDung";
+    Layout = "~/Areas/Admin/Views/Shared/Layout_Admin.cshtml";
+}
+<link rel="stylesheet" href="~/Areas/Admin/Css/XemChiTietXe_Css.css" />
+<div class="container">
+    <div class="tieuDe">
+        <h2 class="text-center" style="margin-top: 20px; color: #15031B;">THÔNG TIN CHI TIẾT</h2>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-6">
+            <fieldset class="custom-fieldset">
+                <legend><i class="fas fa-user"></i><span> Thông tin người dùng </span><i class="fas fa-user"></i></legend>
+                <div class="custom-card">
+                    <div>
+                        <h4><i class="fas fa-user"></i> Mã người dùng: @Model.MaNguoiDung</h4>
+                        <h4><i class="fas fa-birthday-cake"></i> Ngày sinh: @Html.FormatValue(Model.NgaySinh, "{0:dd/MM/yyyy}")</h4>
+                        <h4><i class="fas fa-venus-mars"></i> Giới tính: @Model.GioiTinh</h4>
+                        <h4><i class="fas fa-envelope-square"></i> Email: @Model.Email</h4>
+                        <h4><i class="fas fa-house-user"></i> Địa chỉ: @Model.DiaChi</h4>
+                        <h4><i class="fas fa-user-shield"></i> UserName: @Model.UserName</h4>
+                        <h4><i class="fas fa-key"></i> PassWord: @Model.Pass</h4>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-md-6">
+            <fieldset class="custom-fieldset">
+                <legend><i class="fas fa-id-card"></i><span> Thông tin thẻ mượn </span><i class="fas fa-id-card"></i></legend>
+                <div class="custom-card">
+                    <div>
+                        @if (Model.MaTheMuon == null)
+                        {
+                            <h4><i class="fas fa-id-card"></i> Thẻ mượn hiện tại: Không có thẻ mượn</h4>
+                        }
+                        else if (Model.THEMUON.MaLoaiTheMuon == 2)
+                        {
+                            <h4><i class="fas fa-house-user"></i>Mã thẻ mượn: @Model.THEMUON.MaTheMuon</h4>
+                            <h4><i class="fab fa-cc-jcb"></i> Loại thẻ mượn: @Model.THEMUON.LOAITHEMUON.TenLoaiTheMuon</h4>
+                            <h4><i class="fas fa-money-bill-wave"></i> Số dư: @Model.THEMUON.SoDu</h4>
+                        }
+                        else
+                        {
+                            <h4 ><i class="fas fa-house-user"></i>Mã thẻ mượn: @Model.THEMUON.MaTheMuon</h4>
+                            <h4><i class="fab fa-cc-jcb"></i> Loại thẻ mượn: @Model.THEMUON.LOAITHEMUON.TenLoaiTheMuon</h4>
+                            <h4><i class="fas fa-home"></i> Tài khoản ngân hàng: @Model.THEMUON.TaiKhoanNganHang</h4>
+                        }
+
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center" style="margin-top: 20px;">
+            <a href="@Url.Action("Xoa_NguoiDung","Admin", new { id = Model.MaNguoiDung})" class="btn btn-danger" role="button"><i class="fas fa-trash-alt"></i> Xóa</a>
+        </div>
+    </div>
+    <div class="mg-top">
+        <a href="@Url.Action("QuanLyNguoiDung","Admin")" class="btn btn-primary" style="margin-top: 60px; margin-bottom: 10px; margin-left: 10px"><i class="fa-solid fa-arrow-left"></i> Quay lại trang quản lý người dùng</a>
+    </div>
+</div>
+
+
+

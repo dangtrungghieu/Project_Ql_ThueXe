@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Project_Ql_ThueXe.Models.LOAIXE>
+
+@{
+    ViewBag.Title = "Bảng Giá";
+    Layout = "~/Views/Shared/LayoutHome.cshtml";
+}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<style>
+
+
+    h2 {
+        color: #007bff;
+        font-size: 28px; /* Điều chỉnh kích thước chữ cho tiêu đề */
+    }
+
+    .custom-table {
+        width: 120%; /* Điều chỉnh chiều rộng của bảng */
+        margin-bottom: 30px;
+    }
+
+        .custom-table th, .custom-table td {
+            text-align: center;
+            font-size: 18px; /* Điều chỉnh kích thước chữ cho cột trong bảng */
+        }
+</style>
+
+<div class="container" style="padding-bottom: 50px">
+    <h2 class="text-center" style="margin-bottom: 30px; padding-top: 30px"><strong>Bảng giá mượn xe đạp</strong></h2>
+
+    <table class="table table-striped custom-table" style="text-align:center; padding-bottom:30px">
+        <thead class="thead-light">
+            <tr>
+                <th>Loại xe đạp</th>
+                <th>Đơn giá mượn (VNĐ/giờ)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var loaixe in Model)
+            {
+                <tr>
+                    <td>
+                        @loaixe.TenLoai
+                    </td>
+                    <td>
+                        @loaixe.DonGia
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

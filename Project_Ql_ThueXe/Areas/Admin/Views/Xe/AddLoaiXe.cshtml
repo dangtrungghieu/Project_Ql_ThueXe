@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewBag.Title = "AddLoaiXe";
+    Layout = "~/Areas/Admin/Views/Shared/Layout_Admin.cshtml";
+}
+<style>
+    .custom-box {
+        border: 2px solid #007bff; /* Viền màu xanh */
+        border-radius: 10px; /* Bo tròn viền */
+        padding: 10px; /* Khoảng cách nội dung và viền */
+        margin-bottom: 10px; /* Khoảng cách giữa các ô */
+        margin-left: 50px;
+        margin-right: 50px;
+        margin-top: 20px;
+    }
+
+    .custom-message {
+        color: white;
+        background-color: red;
+        padding: 8px 12px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        margin-top: 10px;
+        font-family: 'Times New Roman';
+    }
+</style>
+<link rel="stylesheet" href="~/Areas/Admin/Css/Xe_Admin_Css.css" />
+<link rel="stylesheet" href="~/Areas/Admin/Css/XemChiTietXe_Css.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+<div class="tieuDe">
+    <h2 class="text-center" style="margin-top: 20px; color: #15031B;">THÊM MỚI LOẠI XE</h2>
+</div>
+<h4 class="custom-message">Vui lòng điền đầy đủ thông tin vào FORM sau!</h4>
+<div class="formbold-main-wrapper">
+    <div class="formbold-form-wrapper">
+        <form action="AddLoaiXe" method="POST">
+            <div class="flex flex-wrap formbold--mx-3">
+                <div class="w-full sm:w-half formbold-px-3">
+                    <div class="formbold-mb-5">
+                        <label for="fName" class="formbold-form-label"> Tên loại xe </label>
+                        <input type="text"
+                               name="sName"
+                               id="sName"
+                               placeholder="Nhập tên loại xe....."
+                               class="formbold-form-input"
+                               value="@ViewBag.sName"
+                               required />
+                        <div style="color:red; font-size:15px; font-weight:bold">@ViewBag.ThongBao</div>
+                    </div>
+                </div>
+                <div class="w-full sm:w-half formbold-px-3">
+                    <div class="formbold-mb-5">
+                        <label for="lName" class="formbold-form-label"> Đơn giá (VNĐ) </label>
+                        <input type="number"
+                               name="sDonGia"
+                               id="sDonGia"
+                               placeholder="Nhập giá....."
+                               min="0"
+                               class="formbold-form-input"
+                               value="@ViewBag.sDonGia"
+                               required />
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex formbold-mb-5">
+                <span style="font-weight:bold; padding-right:5px;">Bạn có chắc chắn muốn thêm loại xe này không? </span>
+                <div class="flex" style="padding-top:2px">
+                    <input type="radio"
+                           name="radio1"
+                           id="radioButton1"
+                           class="formbold-radio"
+                           value="1"
+                           required />
+                    <label for="radioButton1" class="formbold-radio-label"> Có </label>
+                </div>
+                <div class="flex" style="padding-top:2px">
+                    <input type="radio"
+                           name="radio1"
+                           id="radioButton2"
+                           class="formbold-radio"
+                           value="0"
+                           required />
+                    <label for="radioButton2" class="formbold-radio-label"> Không </label>
+                </div>
+            </div>
+
+            <div>
+                <button class="formbold-btn" type="submit">Thêm mới</button>
+                <div style="color:red; font-size:15px; font-weight:bold">@ViewBag.ThongBao1</div>
+            </div>
+        </form>
+    </div>
+</div>
+<a href="@Url.Action("LoaiXe","Xe")" class="btn btn-primary" style="margin-top:180px; margin-left:10px"><i class="fa-solid fa-arrow-left"></i> Quay lại trang quản lý loại xe</a>
+
+

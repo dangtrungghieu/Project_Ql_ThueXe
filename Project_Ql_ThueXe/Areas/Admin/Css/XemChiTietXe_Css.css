@@ -1,0 +1,93 @@
+﻿.tieuDe {
+    margin-left: 200px;
+    height: 100px;
+    width: 800px;
+    background-color: #FFB758;
+    border-radius: 20px;
+    font-family:'Times New Roman';
+}
+    .tieuDe h2 {
+        padding-top: 20px;
+        font-weight: bold;
+        font-size: 50px;
+    }
+.custom-card {
+    border-radius: 10px;
+    border: 1px solid #0d6efd;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #f8f9fa; /* Màu nền */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng đổ */
+}
+
+    .custom-card h4 {
+        font-weight: bold;
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+
+    .custom-card i {
+        color: #fc4236;
+        margin-right: 8px;
+    }
+    /* Bổ sung CSS tùy chỉnh cho các phần tử */
+
+    /* Căn lề cho các tiêu đề */
+    .custom-card h3 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    /* Định dạng cho dấu gạch ngang */
+    .custom-card hr {
+        margin-top: 5px;
+        margin-bottom: 15px;
+        border: 0;
+        border-top: 1px solid #dee2e6;
+    }
+
+    /* Định dạng cho từng thông tin xe và thông tin trạm */
+    .custom-card div {
+        margin-bottom: 10px;
+    }
+
+    /* Định dạng cho biểu tượng */
+    .custom-card i {
+        color: #fc4236;
+        margin-right: 8px;
+    }
+
+/* Thay đổi màu nền và bóng đổ */
+.custom-card {
+    border-radius: 10px;
+    border: 1px solid #0d6efd;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.custom-fieldset {
+    border: 1px solid #0d6efd;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+    .custom-fieldset legend {
+        padding: 0 10px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #0d6efd;
+        width: auto;
+        border: none;
+    }
+        .custom-fieldset legend i {
+            color: #fc4236; /* Màu icon */
+        }
+
+        /* Định dạng cho chữ */
+        .custom-fieldset legend span {
+            color: #D14150;
+            font-size:25px;/* Màu chữ */
+            font-family:'Times New Roman';
+        }

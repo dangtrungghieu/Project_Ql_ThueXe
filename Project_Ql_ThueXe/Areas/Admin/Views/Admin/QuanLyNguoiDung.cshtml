@@ -1,0 +1,145 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using Project_Ql_ThueXe.Models;
+@model PagedList.PagedList<Project_Ql_ThueXe.Models.NGUOIDUNG>
+@{
+    ViewBag.Title = "QuanLyNguoiDung";
+    Layout = "~/Areas/Admin/Views/Shared/Layout_Admin.cshtml";
+}
+@{
+    int STT = ViewBag.StartingIndex ?? 1;
+}
+
+
+
+@*Css-Định dạng*@
+<link rel="stylesheet" href="~/Areas/Admin/Css/Button_Css.css" />
+<link rel="stylesheet" href="~/Areas/Admin/Css/Xe_Admin_Css.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+<style>
+    .MenuTrang {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        font-family: Arial, sans-serif;
+    }
+
+    .pagedList {
+        list-style-type: none;
+        margin-top: 15px;
+        padding: 0;
+        display: flex;
+    }
+
+        .pagedList li {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            color: #333;
+            cursor: pointer;
+        }
+
+            .pagedList li.active {
+                background-color: #007bff;
+                color: #fff;
+            }
+
+            .pagedList li:hover {
+                color: black;
+                background-color: #D7FCF5;
+            }
+</style>
+
+
+
+
+@*Code chức năng*@
+<h2 style="text-align:center; font-weight:bold; padding-top:20px;">DANH SÁCH NGƯỜI DÙNG</h2>
+<span style="font-weight:bold; color:red; font-size: 20px; margin-left:10px ;font-family:'Times New Roman'">@ViewBag.ThongBao</span>
+<br />
+<button onclick="window.location.href = '@Url.Action("ThemMoi_NguoiDung","Admin")'" class="button-82-pushable" style="margin-left:5px;">
+    <span class="button-82-shadow"> </span>
+    <span class="button-82-edge"> </span>
+    <span class="button-82-front text" style="font-size:15px">
+        Thêm mới
+    </span>
+</button>
+<div class="row">
+    <div class="col-md-12">
+        <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
+            <table class="table manage-candidates-top mb-0">
+                <thead>
+                    <tr>
+                        <th class="text-center">STT</th>
+                        <th class="text-center">Tên người dùng</th>
+                        <th class="text-center">Giới tính</th>
+                        <th class="text-center">Ngày sinh</th>
+                        <th class="text-center">Email</th>
+                        <th class="text-center">UserName</th>
+                        <th class="text-center">Thẻ mượn</th>
+                        <th style="float:right">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="candidates-list">
+                            <td style="text-align:center;font-weight:bold;color:red">
+                                @STT
+                            </td>
+                            <td class="text-center">
+                                @item.TenNguoiDung
+                            </td>
+                            <td class="text-center">
+                                @item.GioiTinh
+                            </td>
+                            <td class="candidate-list-favourite-time text-center">
+                                @Html.FormatValue(item.NgaySinh, "{0:dd/MM/yyyy}")
+                            </td>
+                            <td class="text-center">
+                                @TrunCate(item.Email, 10)
+                            </td>
+                            <td class="text-center">
+                                @TrunCate(item.UserName, 5)
+                            </td>
+                            <td class="text-center">
+                                @if (item.MaTheMuon == null)
+                                {
+                                    <span>Không có thẻ</span>
+                                }
+                                else
+                                {
+                                    @item.THEMUON.LOAITHEMUON.TenLoaiTheMuon
+                                }
+                            </td>
+
+                            <td>
+                                <ul class="list-unstyled mb-0 d-flex justify-content-end" style="align-items:center">
+                                    <li><a href="@Url.Action("XemChiTiet_NguoiDung","Admin", new { id = item.MaNguoiDung})" class="text-primary detail-link"><i class="far fa-eye"></i></a></li>
+                                    <li><a href="@Url.Action("Xoa_NguoiDung","Admin", new { id = item.MaNguoiDung})" class="text-danger"><i class="far fa-trash-alt"></i></a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                        STT++;
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="MenuTrang pagedList">
+            @Html.PagedListPager(
+                Model,
+                page => Url.Action("QuanLyNguoiDung", "Admin", new { iMaND = ViewBag.MaND, page = page })
+            )
+        </div>
+    </div>
+</div>
+@helper TrunCate(string s, int length)
+{if (s.Length < length)
+    {
+        @s }
+    else
+    {
+        @s.Substring(0, length)<text>...</text>}
+}
