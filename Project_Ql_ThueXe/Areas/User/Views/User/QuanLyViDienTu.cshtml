@@ -9,7 +9,8 @@
     ViewBag.Title = "QuanLyViDienTu";
     Layout = "~/Areas/User/Views/Shared/LayoutUser.cshtml";
 }
-
+<h2 style="font-weight:bold; text-align:center;margin-top:10px">QUẢN LÝ VÍ ĐIỆN TỬ</h2>
+<h4 style="margin-left:10px; font-weight:bold; color:red;text-align:center">@ViewBag.ThongBao</h4>
 @if (nGUOIDUNG.MaTheMuon == null)
 {
     <div class="container mt-5">
@@ -30,7 +31,6 @@
                             <label for="sPassThe">Mật Khẩu:</label>
                             <input name="sPassThe" type="password" placeholder="Nhập Mật Khẩu" class="form-control" id="sPassThe" required>
                         </div>
-                        <div class="text-center" style="color:red">@ViewBag.ThongBao</div>
                         <button style="margin-top: 30px; margin-bottom: 20px" type="submit" class="btn btn-primary btn-block">Liên Kết</button>
                     </form>
                 }
@@ -52,32 +52,55 @@
         </div>
     </div>
 }
+else if (nGUOIDUNG.THEMUON.MaLoaiTheMuon == 2)
+{
+    <div class="text-center">
+        <h2 style="margin-top: 60px" class="mb-4">Số Dư Thẻ Mượn</h2>
+        <p class="display-5 font-weight-bold text-primary mb-4">@nGUOIDUNG.THEMUON.SoDu VNĐ</p>
+
+        <div class="row mb-3">
+            <div class="col">
+                <h4 style="margin-right: 10px">Loại thẻ: @nGUOIDUNG.THEMUON.LOAITHEMUON.TenLoaiTheMuon</h4>
+            </div>
+        </div>
+        <div style="margin-top: 60px" class="row">
+            <div class="col">
+                <a href="@Url.Action("Payment","User")" class="btn btn-primary btn-block" style="max-width: 150px; margin-left: 200px">Nạp Tiền Vào Thẻ</a>
+            </div>
+            <div class="col">
+                <a href="@Url.Action("HoanTraThe", "User")" class="btn btn-secondary btn-block" style="max-width: 150px;margin-left:100px">Hoàn Trả Thẻ</a>
+            </div>
+            <div class="col">
+                <a href="@Url.Action("HuyLienKet", "User")" class="btn btn-secondary btn-block" style="max-width: 150px">Hủy liên kết</a>
+            </div>
+        </div>
+    </div> }
 else
 {
-<div class="text-center">
-    <h2 style="margin-top: 60px" class="mb-4">Số Dư Thẻ Mượn</h2>
-    <p class="display-5 font-weight-bold text-primary mb-4">@nGUOIDUNG.THEMUON.SoDu VNĐ</p>
+    <div class="text-center">
+        <h2 style="margin-top: 60px" class="mb-4">Số Dư Thẻ Mượn</h2>
+        <p class="display-5 font-weight-bold text-primary mb-4">@nGUOIDUNG.THEMUON.SoDu VNĐ</p>
 
-    <div class="row mb-3">
-        <div class="col">
-            <h4 style="margin-left: 250px">Bank: @nGUOIDUNG.THEMUON.TenNganHang</h4>
+        <div class="row mb-3">
+            <div class="col">
+                <h4 style="margin-left: 20px">Bank: @nGUOIDUNG.THEMUON.TenNganHang</h4>
+            </div>
+            <div class="col">
+                <h4 style="margin-right: 20px">STK: @nGUOIDUNG.THEMUON.TaiKhoanNganHang</h4>
+            </div>
+            <div class="col">
+                <h4 style="margin-right: 10px">Loại thẻ: @nGUOIDUNG.THEMUON.LOAITHEMUON.TenLoaiTheMuon</h4>
+            </div>
         </div>
-        <div class="col">
-            <h4 style="margin-right: 250px">STK: @nGUOIDUNG.THEMUON.TaiKhoanNganHang</h4>
-        </div>
-        <div class="col">
-            <h4 style="margin-right: 10px">Loại thẻ: @nGUOIDUNG.THEMUON.LOAITHEMUON.TenLoaiTheMuon</h4>
+        <div style="margin-top: 60px" class="row">
+            <div class="col">
+                <a href="@Url.Action("HoanTraThe", "User")" class="btn btn-secondary btn-block" style="margin-left:500px;max-width: 150px">Hoàn Trả Thẻ</a>
+            </div>
+            <div class="col">
+                <a href="@Url.Action("HuyLienKet", "User")" class="btn btn-secondary btn-block" style="max-width: 150px">Hủy liên kết</a>
+            </div>
         </div>
     </div>
-    <div style="margin-top: 60px" class="row">
-        <div class="col">
-            <a href="@Url.Action("Payment","User")" class="btn btn-primary btn-block" style="max-width: 150px; margin-left: 400px">Nạp Tiền Vào Thẻ</a>
-        </div>
-        <div class="col">
-            <a href="@Url.Action("HoanTraThe", "User")" class="btn btn-secondary btn-block" style="max-width: 150px">Hoàn Trả Thẻ</a>
-        </div>
-    </div>
-</div>
 }
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

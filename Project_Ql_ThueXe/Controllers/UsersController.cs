@@ -21,7 +21,7 @@ namespace DHGo.Controllers
         {
             var TenDN = f["sTenDN"];
             var MatKhau = f["sMatKhau"];
-            NGUOIDUNG nd = db.NGUOIDUNG.SingleOrDefault(n => n.UserName == TenDN && n.Pass == MatKhau);
+            NGUOIDUNG nd = db.NGUOIDUNG.SingleOrDefault(n => n.UserName == TenDN && n.Pass == MatKhau && n.QUYENTRUYCAP.MaQTC == 2);
             if (nd != null)
             {
                 ViewBag.ThongBao = "Chúc mừng bạn đăng nhập thành công!";

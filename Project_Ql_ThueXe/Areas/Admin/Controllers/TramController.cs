@@ -200,7 +200,7 @@ namespace Project_Ql_ThueXe.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var tram = db.TRAM.Find(id);
-
+            ViewBag.SoLuongXe = db.XE.Where(n => n.MaTram == id).Count();
             if (tram == null)
             {
                 return HttpNotFound();
@@ -217,6 +217,7 @@ namespace Project_Ql_ThueXe.Areas.Admin.Controllers
             var id = int.Parse(f["MaTram"]);
             var sKiemTra = int.Parse(f["radio1"]);
             var tram = db.TRAM.Find(id);
+            ViewBag.SoLuongXe = db.XE.Where(n => n.MaTram == id).Count();
             int soXe = db.XE.Where(n => n.MaTram == id).Count();
             if (sKiemTra == 0)
             {

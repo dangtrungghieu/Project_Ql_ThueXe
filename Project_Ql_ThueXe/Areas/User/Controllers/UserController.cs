@@ -134,6 +134,7 @@ namespace DHGo.Areas.User.Controllers
         [HttpGet]
         public ActionResult QuanLyViDienTu()
         {
+            ViewBag.ThongBao = TempData["ThongBao"];
             return View();
         }
         [HttpPost]
@@ -141,29 +142,32 @@ namespace DHGo.Areas.User.Controllers
         {
             NGUOIDUNG nGUOIDUNG = (NGUOIDUNG)Session["TaiKhoan"];
             NGUOIDUNG ng = db.NGUOIDUNG.SingleOrDefault(n => n.MaNguoiDung == nGUOIDUNG.MaNguoiDung);
-
+           
             var mathemuon = int.Parse(f["sMaTheMuon"]);
             var matkhau = f["sPassThe"];
-
+            int soLuong = db.NGUOIDUNG.Where(n => n.MaTheMuon == mathemuon).Count();
             THEMUON tm = db.THEMUON.Find(mathemuon);
 
             if(tm.PassTheMuon != matkhau)
             {
-                ViewBag.ThongBao = "Sai Mã Thẻ Hoặc Mật Khẩu";
-                return View();
+                TempData["ThongBao"] = "Sai mật khẩu!";
+
             }
             else if(tm.MaTheMuon != mathemuon)
             {
-                ViewBag.ThongBao = "Sai Mã Thẻ Hoặc Mật Khẩu";
-                return View();
+                TempData["ThongBao"] = "Sai Mã thẻ!";
+
+            }
+            else if (soLuong > 0)
+            {
+                TempData["ThongBao"] = "Thẻ đã được liên kết với tài khoản khác!";
             }
             else if (ng.MaTheMuon == null && tm.PassTheMuon == matkhau)
             {
                 ng.MaTheMuon = int.Parse(f["sMaTheMuon"]);
+                db.SaveChanges();
             }
-
-            db.SaveChanges();
-
+            
             Session["TaiKhoan"] = ng;
             return RedirectToAction("QuanLyViDienTu", "User");
         }
@@ -172,14 +176,13 @@ namespace DHGo.Areas.User.Controllers
             NGUOIDUNG nGUOIDUNG = (NGUOIDUNG)Session["TaiKhoan"];
             NGUOIDUNG ng = db.NGUOIDUNG.SingleOrDefault(n => n.MaNguoiDung == nGUOIDUNG.MaNguoiDung);
 
-            if (ng.THEMUON.SoDu > 0)
+            if (ng.THEMUON.MaLoaiTheMuon == 2)
             {
                 return View();
             }
             else
             {
-                ng.MaTheMuon = null;
-                db.SaveChanges();
+                TempData["ThongBao"] = "Thẻ của bạn là loại thẻ trả sau. Nên không thể hoàn trả thẻ!";
                 Session["TaiKhoan"] = ng;
 
                 return RedirectToAction("QuanLyViDienTu", "User");
@@ -190,7 +193,6 @@ namespace DHGo.Areas.User.Controllers
             NGUOIDUNG nGUOIDUNG = (NGUOIDUNG)Session["TaiKhoan"];
             NGUOIDUNG ng = db.NGUOIDUNG.SingleOrDefault(n => n.MaNguoiDung == nGUOIDUNG.MaNguoiDung);
             ng.THEMUON.SoDu = 0;
-
             db.SaveChanges();
             Session["TaiKhoan"] = ng;
             return RedirectToAction("HoanTraThe", "User");
@@ -276,6 +278,15 @@ namespace DHGo.Areas.User.Controllers
                 }
             }
             return View();
+        }
+        public ActionResult HuyLienKet()
+        {
+            NGUOIDUNG nGUOIDUNG = (NGUOIDUNG)Session["TaiKhoan"];
+            NGUOIDUNG ng = db.NGUOIDUNG.SingleOrDefault(n => n.MaNguoiDung == nGUOIDUNG.MaNguoiDung);
+            ng.MaTheMuon = null;
+            db.SaveChanges();
+            Session["TaiKhoan"] = ng;
+            return RedirectToAction("QuanLyViDienTu", "User");
         }
     }
 }

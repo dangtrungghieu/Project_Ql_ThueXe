@@ -21,10 +21,9 @@ namespace DHGo.Controllers
             List<LOAIXE> danhSachLoaiXe = db.LOAIXE.ToList();
             return View(danhSachLoaiXe);
         }
-
-        public ActionResult DiaChiTram(int ?id)
+        [HttpGet]
+        public ActionResult DiaChiTram()
         {
-            var tram = db.TRAM.Find(id);
             return View();
         }
         public ActionResult HuongDan()
