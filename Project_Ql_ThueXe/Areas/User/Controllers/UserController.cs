@@ -176,7 +176,7 @@ namespace DHGo.Areas.User.Controllers
             NGUOIDUNG nGUOIDUNG = (NGUOIDUNG)Session["TaiKhoan"];
             NGUOIDUNG ng = db.NGUOIDUNG.SingleOrDefault(n => n.MaNguoiDung == nGUOIDUNG.MaNguoiDung);
 
-            if (ng.THEMUON.MaLoaiTheMuon == 2)
+            if (ng.THEMUON.MaLoaiTheMuon == 1)
             {
                 return View();
             }
@@ -200,6 +200,14 @@ namespace DHGo.Areas.User.Controllers
         [HttpGet]
         public ActionResult Payment()
         {
+            NGUOIDUNG nGUOIDUNG = (NGUOIDUNG)Session["TaiKhoan"];
+            NGUOIDUNG ng = db.NGUOIDUNG.SingleOrDefault(n => n.MaNguoiDung == nGUOIDUNG.MaNguoiDung);
+            if (ng.THEMUON.MaLoaiTheMuon == 2)
+            {
+                TempData["ThongBao"] = "Thẻ của bạn là loại thẻ trả sau. Nên không thể nạp tiền vào thẻ!";
+                Session["TaiKhoan"] = ng;
+                return RedirectToAction("QuanLyViDienTu", "User");
+            }
             return View();
         }
         [HttpPost]

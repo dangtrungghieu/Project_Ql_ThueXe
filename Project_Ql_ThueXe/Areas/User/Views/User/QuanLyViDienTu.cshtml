@@ -52,7 +52,7 @@
         </div>
     </div>
 }
-else if (nGUOIDUNG.THEMUON.MaLoaiTheMuon == 2)
+else if (nGUOIDUNG.THEMUON.MaLoaiTheMuon == 1)
 {
     <div class="text-center">
         <h2 style="margin-top: 60px" class="mb-4">Số Dư Thẻ Mượn</h2>
@@ -94,7 +94,10 @@ else
         </div>
         <div style="margin-top: 60px" class="row">
             <div class="col">
-                <a href="@Url.Action("HoanTraThe", "User")" class="btn btn-secondary btn-block" style="margin-left:500px;max-width: 150px">Hoàn Trả Thẻ</a>
+                <a href="@Url.Action("Payment","User")" class="btn btn-primary btn-block" style="max-width: 150px; margin-left: 200px">Nạp Tiền Vào Thẻ</a>
+            </div>
+            <div class="col">
+                <a href="@Url.Action("HoanTraThe", "User")" class="btn btn-secondary btn-block" style="max-width: 150px;margin-left:100px">Hoàn Trả Thẻ</a>
             </div>
             <div class="col">
                 <a href="@Url.Action("HuyLienKet", "User")" class="btn btn-secondary btn-block" style="max-width: 150px">Hủy liên kết</a>
