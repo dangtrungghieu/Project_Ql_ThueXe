@@ -1,4 +1,5 @@
-﻿using Project_Ql_ThueXe.Models;
+﻿using PagedList;
+using Project_Ql_ThueXe.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -116,5 +117,6 @@ namespace DHGo.Controllers
             }
            
         }
+       
     }
 }

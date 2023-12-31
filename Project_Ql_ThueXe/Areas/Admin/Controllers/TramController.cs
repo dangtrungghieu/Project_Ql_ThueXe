@@ -201,6 +201,7 @@ namespace Project_Ql_ThueXe.Areas.Admin.Controllers
             }
             var tram = db.TRAM.Find(id);
             ViewBag.SoLuongXe = db.XE.Where(n => n.MaTram == id).Count();
+            int soLuong = db.XE.Where(n => n.MaTram == id).Count();
             if (tram == null)
             {
                 return HttpNotFound();
@@ -208,6 +209,10 @@ namespace Project_Ql_ThueXe.Areas.Admin.Controllers
             if (tram.TinhTrang == "Đang hoạt động")
             {
                 ViewBag.ThongBao = "Trạm đang hoạt động! Vui lòng không xóa trạm!";
+            }
+            if (soLuong > 0)
+            {
+                ViewBag.ThongBao = "Trạm đang có xe! Vui lòng không xóa trạm!";
             }
             return View(tram);
         }

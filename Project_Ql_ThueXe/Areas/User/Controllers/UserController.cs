@@ -1,4 +1,5 @@
-﻿using Project_OOD;
+﻿using PagedList;
+using Project_OOD;
 using Project_Ql_ThueXe.Models;
 using System;
 using System.Collections.Generic;
@@ -295,6 +296,23 @@ namespace DHGo.Areas.User.Controllers
             db.SaveChanges();
             Session["TaiKhoan"] = ng;
             return RedirectToAction("QuanLyViDienTu", "User");
+        }
+        [HttpGet]
+        public ActionResult QuanLyLichSu(int? page)
+        {
+            NGUOIDUNG nGUOIDUNG = (NGUOIDUNG)Session["TaiKhoan"];
+            if(nGUOIDUNG.MaTheMuon == null)
+            {
+                return View();
+            }
+            else
+            {
+                int iSize = 5;
+                int iPageNum = (page ?? 1);
+                var DSls = from lsm in db.MUONXE where lsm.MaTheMuon == nGUOIDUNG.THEMUON.MaTheMuon select lsm;
+                ViewBag.StartingIndex = (iPageNum - 1) * iSize + 1;
+                return View(DSls.OrderBy(s => s.MaMuonXe).ToPagedList(iPageNum, iSize));
+            }
         }
     }
 }

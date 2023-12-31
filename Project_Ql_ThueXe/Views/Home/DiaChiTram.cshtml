@@ -1,8 +1,217 @@
-﻿@model Project_Ql_ThueXe.Models.TRAM
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using Project_Ql_ThueXe.Models;
+@model PagedList.PagedList<Project_Ql_ThueXe.Models.TRAM>
+@using Newtonsoft.Json;
 
 @{
     ViewBag.Title = "Địa Chỉ Trạm";
     Layout = "~/Views/Shared/LayoutHome.cshtml";
 }
 
+@{
+    int STT = ViewBag.StartingIndex ?? 1;
+}
+<!--  css file link  -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+@*Css-Định dạng*@
+<link rel="stylesheet" href="~/Areas/Admin/Css/Button_Css.css" />
+<link rel="stylesheet" href="~/Areas/Admin/Css/Xe_Admin_Css.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+<style>
+    .MenuTrang {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        font-family: Arial, sans-serif;
+    }
+
+    .pagedList {
+        list-style-type: none;
+        margin-top: 15px;
+        padding: 0;
+        display: flex;
+    }
+
+        .pagedList li {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            color: #333;
+            cursor: pointer;
+        }
+
+            .pagedList li.active {
+                background-color: #007bff;
+                color: #fff;
+            }
+
+            .pagedList li:hover {
+                color: black;
+                background-color: #D7FCF5;
+            }
+
+    .custom-message {
+        color: white;
+        background-color: red;
+        padding: 8px 12px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        margin-top: 10px;
+        font-family: 'Times New Roman';
+    }
+    /* Định dạng ô tìm kiếm */
+    #locationInput {
+        width: 500px; /* Độ rộng */
+        height: 60px; /* Chiều cao */
+        border-radius: 20px; /* Bo tròn các góc để tạo hình dạng tròn */
+        padding: 5px 15px; /* Khoảng cách bên trong ô */
+        font-size: 16px; /* Kích thước chữ */
+        margin-bottom: 20px; /* Khoảng cách với phần khác */
+    }
+
+    /* Định dạng nút tìm kiếm */
+    #searchButton {
+        padding: 10px 20px; /* Kích thước nút */
+        border-radius: 20px; /* Bo tròn các góc */
+        font-size: 16px; /* Kích thước chữ */
+        cursor: pointer; /* Con trỏ khi rê chuột */
+        margin-bottom: 20px; /* Khoảng cách với phần khác */
+    }
+</style>
+
+@*Code chức năng*@
+<h2 style="text-align:center; font-weight:bold; padding-top:20px;">DANH SÁCH TRẠM</h2>
+
+<div class="row">
+    <div class="col-md-8" style="margin-left:300px">
+        <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
+            <table class="table manage-candidates-top mb-0">
+                <thead>
+                    <tr>
+                        <th class="text-center">STT</th>
+                        <th class="text-center">Mã trạm</th>
+                        <th class="text-center">Địa chỉ</th>
+                        <th class="text-center">Tình trạng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        if (item.TinhTrang == "Đang hoạt động")
+                        {
+                            <tr class="candidates-list">
+                                <td style="text-align:center;font-weight:bold;color:red">
+                                    @STT
+                                </td>
+                                <td class="text-center">
+                                    @item.MaTram
+                                </td>
+                                <td class="text-center">
+                                    @TrunCate(item.DiaChi, 25)
+                                </td>
+                                <td class="candidate-list-favourite-time text-center">
+                                    <span class="status-span button-33" data-id="@item.MaTram" data-status="Đang hoạt động">@item.TinhTrang</span>
+                                </td>
+                            </tr>
+                            STT++;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="MenuTrang pagedList">
+            @Html.PagedListPager(
+                Model,
+                page => Url.Action("DiaChiTram", "Home", new { iMaTram = ViewBag.MaTram, page = page })
+            )
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+@helper TrunCate(string s, int length)
+{if (s.Length < length)
+    {
+        @s }
+    else
+    {
+        @s.Substring(0, length)<text>...</text>}
+}
+@*<div id="map" style="height: 300px; margin-top: 20px; margin-bottom:20px; margin-left:20px;margin-right:20px"></div>*@
+
+@*<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var map = L.map('map').setView([10.980496, 106.675572], 30);
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(map);
+            @foreach (var item in Model)
+            {
+                <text>
+                L.marker([@item.Long, @item.Last]).addTo(map)
+                    .bindPopup("Trạm số" + " @item.MaTram");
+                </text>
+            }
+        });
+    </script>*@
+
+<!-- Thêm thẻ input và nút tìm kiếm vào phần HTML của bạn -->
+<div style="text-align:center">
+    <input id="locationInput" type="text" placeholder="Nhập địa chỉ">
+    <button id="searchButton" onclick="searchAddress()">Tìm kiếm trạm gần nhất</button>
+</div>
+
+<!-- Đặt đoạn mã về bản đồ ở đây -->
+<div id="map" style="height: 300px; margin-top: 20px; margin-bottom:20px; margin-left:20px;margin-right:20px"></div>
+
+<!-- Đoạn mã JavaScript -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var map = L.map('map').setView([10.980496, 106.675572], 30);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        @foreach (var item in Model)
+        {
+            if(item.TinhTrang == "Đang hoạt động")
+                {
+                    <text>
+                    L.marker([@item.Long, @item.Last]).addTo(map)
+                        .bindPopup("Trạm số" + " @item.MaTram");
+                    </text>
+                }
+        }
+    });
+
+    // Hàm tìm kiếm địa chỉ
+    function searchAddress() {
+        var address = document.getElementById('locationInput').value;
+
+        // Sử dụng geocoding để tìm vị trí từ địa chỉ
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ 'address': address }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                var latitude = results[0].geometry.location.lat();
+                var longitude = results[0].geometry.location.lng();
+
+                // Đặt trung tâm bản đồ tới vị trí tìm kiếm được
+                map.setView([latitude, longitude], 15);
+
+                // Đặt marker cho vị trí tìm được
+                L.marker([latitude, longitude]).addTo(map)
+                    .bindPopup("Địa chỉ tìm kiếm: " + address).openPopup();
+            } else {
+                alert('Không tìm thấy địa chỉ: ' + status);
+            }
+        });
+    }
+</script>
 

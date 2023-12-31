@@ -1,0 +1,102 @@
+﻿@using PagedList.Mvc;
+@model PagedList.PagedList<Project_Ql_ThueXe.Models.MUONXE>
+
+@using Project_Ql_ThueXe.Models;
+
+@{
+    NGUOIDUNG nGUOIDUNG = (NGUOIDUNG)Session["TaiKhoan"];
+}
+
+@{
+    ViewBag.Title = "QuanLyLichSu";
+    Layout = "~/Areas/User/Views/Shared/LayoutUser.cshtml";
+}
+<style>
+    .MenuTrang {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        font-family: Arial, sans-serif;
+    }
+
+    .pagedList {
+        list-style-type: none;
+        margin-top: 15px;
+        padding: 0;
+        display: flex;
+    }
+
+        .pagedList li {
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            color: #333;
+            cursor: pointer;
+        }
+
+            .pagedList li.active {
+                background-color: #007bff;
+                color: #fff;
+            }
+
+            .pagedList li:hover {
+                color: black;
+                background-color: #D7FCF5;
+            }
+</style>
+@if (nGUOIDUNG.MaTheMuon == null)
+{
+    <h3 style="font-weight:bold; text-align: center; color:red">Chưa liên kết thẻ mượn!</h3>
+}
+else
+{
+<div class="container mt-5">
+    <h2 style="padding-bottom: 15px" class="mb-4 text-center">Lịch sử mượn xe đạp</h2>
+    <table class="table text-center">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Mã thẻ mượn</th>
+                <th>Mã xe mượn</th>
+                <th>Thời gian mượn</th>
+                <th>Thời gian trả</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Any())
+            {
+                var count = Model.PageNumber * Model.PageSize - Model.PageSize + 1;
+                foreach (var ls in Model)
+                {
+                    <tr>
+                        <td>@count</td>
+                        <td>@ls.MaTheMuon</td>
+                        <td>@ls.MaXeMuon</td>
+                        <td>@ls.ThoiGianMuon</td>
+                        <td>@ls.ThoiGianTra</td>
+
+                    </tr>
+                    count++;
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" class="text-center">Không có dữ liệu!</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="MenuTrang pagedList">
+        @Html.PagedListPager(
+            Model,
+            page => Url.Action("QuanLyLichSu", "User", new { iMaCD = ViewBag.MaCD, page = page })
+        )
+    </div>
+</div>
+}
+

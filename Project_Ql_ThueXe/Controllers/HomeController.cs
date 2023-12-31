@@ -1,4 +1,5 @@
-﻿using Project_Ql_ThueXe.Models;
+﻿using PagedList;
+using Project_Ql_ThueXe.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +23,13 @@ namespace DHGo.Controllers
             return View(danhSachLoaiXe);
         }
         [HttpGet]
-        public ActionResult DiaChiTram()
+        public ActionResult DiaChiTram(int ?page)
         {
-            return View();
+                int iSize = 5;
+                int iPageNum = (page ?? 1);
+                var dsTram = from lx in db.TRAM select lx;
+                ViewBag.StartingIndex = (iPageNum - 1) * iSize + 1;
+                return View(dsTram.OrderBy(s => s.MaTram).ToPagedList(iPageNum, iSize));
         }
         public ActionResult HuongDan()
         { 

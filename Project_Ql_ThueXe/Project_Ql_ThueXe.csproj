@@ -298,6 +298,7 @@
     <Content Include="Areas\Admin\Views\Admin\Xoa_NguoiDung.cshtml" />
     <Content Include="Areas\Admin\Views\QuanLyGopY\QuanLyGopY.cshtml" />
     <Content Include="Areas\User\Views\User\GopY.cshtml" />
+    <Content Include="Areas\User\Views\User\QuanLyLichSu.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -309,6 +310,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Views\Home\HtmlPage1.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
