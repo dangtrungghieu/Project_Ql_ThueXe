@@ -195,10 +195,13 @@
             }).addTo(map);
         @foreach (var item in Model)
         {
-            <text>
+            if(item.TinhTrang == "Đang hoạt động")
+                {
+                    <text>
             L.marker([@item.Long, @item.Last]).addTo(map)
                 .bindPopup("Trạm số" + " @item.MaTram");
             </text>
+                }
         }
     });
 </script>

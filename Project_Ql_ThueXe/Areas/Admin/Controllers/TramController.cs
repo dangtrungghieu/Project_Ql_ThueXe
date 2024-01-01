@@ -285,9 +285,9 @@ namespace Project_Ql_ThueXe.Areas.Admin.Controllers
                 return HttpNotFound();
             }
             int soXeDangDuocMuon = db.XE.Where(n => n.MaTram == id && n.TinhTrang == "Đang được mượn").Count();
-            int soDiaChi = db.TRAM.Where(n => n.DiaChi == sDiaChi).Count();
-            int soLong = db.TRAM.Where(n => n.Long == sLong).Count();
-            int soLast= db.TRAM.Where(n => n.Last == sLast).Count();
+            //int soDiaChi = db.TRAM.Where(n => n.DiaChi == sDiaChi).Count();
+            //int soLong = db.TRAM.Where(n => n.Long == sLong).Count();
+            //int soLast= db.TRAM.Where(n => n.Last == sLast).Count();
             if (soXeDangDuocMuon > 0)
             {
                 ViewBag.ThongBao = "Trong trạm đang có xe được mượn! Vui lòng không sửa thông tin trạm!";
@@ -298,11 +298,12 @@ namespace Project_Ql_ThueXe.Areas.Admin.Controllers
                 ViewBag.ThongBao = "Sửa thông tin trạm không thành công! Vui lòng chọn có để sửa thông tin xe!";
                 return View(tram);
             }
-            else if (soDiaChi > 1)
+            else if (sDiaChi != db.TRAM.SingleOrDefault(n=> n.MaTram == id).DiaChi && db.TRAM.SingleOrDefault(n => n.DiaChi == sDiaChi) != null)
             {
                 ViewBag.ThongBao = "Sửa thông tin trạm không thành công! Vì địa chỉ đã tồn tại!";
                 return View(tram);
-            } else if(soLong > 1 || soLast >1)
+            } else if(sLong != db.TRAM.SingleOrDefault(n => n.MaTram == id).Long && db.TRAM.SingleOrDefault(n => n.Long == sLong) != null 
+                || sLast != db.TRAM.SingleOrDefault(n => n.MaTram == id).Last && db.TRAM.SingleOrDefault(n => n.Last == sLast) != null)
             {
                 ViewBag.ThongBao = "Sửa thông tin trạm không thành công! Vì địa chỉ trên Google Map đã tồn tại!";
                 return View(tram);
