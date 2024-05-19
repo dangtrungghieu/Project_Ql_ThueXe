@@ -16,6 +16,29 @@ namespace DHGo.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public ActionResult Home(FormCollection f)
+        {
+            NGUOIDUNG nGUOIDUNG = (NGUOIDUNG)Session["TaiKhoan"];
+
+            NGUOIDUNG ng = db.NGUOIDUNG.SingleOrDefault(n => n.MaNguoiDung == nGUOIDUNG.MaNguoiDung);
+
+            if (ng.Pass != f["sPass"])
+            {
+
+            }
+            else if (f["sConfirmNewPass"] != f["sNewPass"])
+            {
+
+            }
+            else
+            {
+                ng.Pass = f["sNewPass"];
+                db.SaveChanges();
+            }
+            Session["TaiKhoan"] = ng;
+            return RedirectToAction("Home");
+        }
 
         public ActionResult BangGia()
         {

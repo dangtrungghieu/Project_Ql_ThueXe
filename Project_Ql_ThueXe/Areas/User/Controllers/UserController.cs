@@ -19,6 +19,30 @@ namespace DHGo.Areas.User.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public ActionResult Index(FormCollection f)
+        {
+
+            NGUOIDUNG nGUOIDUNG = (NGUOIDUNG)Session["TaiKhoan"];
+
+            NGUOIDUNG ng = db.NGUOIDUNG.SingleOrDefault(n => n.MaNguoiDung == nGUOIDUNG.MaNguoiDung);
+
+            if (ng.Pass != f["sPass"])
+            {
+
+            }
+            else if (f["sConfirmNewPass"] != f["sNewPass"])
+            {
+
+            }
+            else
+            {
+                ng.Pass = f["sNewPass"];
+                db.SaveChanges();
+            }
+            Session["TaiKhoan"] = ng;
+            return RedirectToAction("Index");
+        }
         public ActionResult MenuUser()
         {
             return View();
@@ -79,6 +103,7 @@ namespace DHGo.Areas.User.Controllers
         [HttpGet]
         public ActionResult DoiMatKhau()
         {
+
             return View();
         }
         [HttpPost]
