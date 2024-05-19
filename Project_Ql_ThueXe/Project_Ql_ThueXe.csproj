@@ -299,6 +299,8 @@
     <Content Include="Areas\Admin\Views\QuanLyGopY\QuanLyGopY.cshtml" />
     <Content Include="Areas\User\Views\User\GopY.cshtml" />
     <Content Include="Areas\User\Views\User\QuanLyLichSu.cshtml" />
+    <None Include="Properties\PublishProfiles\nhom8ktpm-001-site1 - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\nhom8ktpm-001-site1 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

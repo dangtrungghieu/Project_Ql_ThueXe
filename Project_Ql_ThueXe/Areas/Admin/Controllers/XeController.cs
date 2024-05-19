@@ -243,8 +243,8 @@ namespace Project_Ql_ThueXe.Areas.Admin.Controllers
                     db.XE.Add(xe);
                     db.SaveChanges();
                 }
+                return RedirectToAction("QuanLyXe", "Xe");
             }
-            return RedirectToAction("QuanLyXe", "Xe");
         }
         [HttpGet]
         public ActionResult LoaiXe(int? page)
